@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 
 export const TripSchema = new mongoose.Schema({
+  departureTime: { type: Number, required: true },
+  totalPrice: { type: Number, required: true },
+  numAdults: { type: Number, required: true },
+  flightClass: { type: String, required: true },
   destinations: [
     {
       location: { type: String, required: true },
       numDays: { type: Number, required: true }
     }
   ],
-  departureTime: { type: Number, required: true },
-  totalPrice: { type: Number, required: true },
-  numAdults: { type: Number, required: true },
-  flightClass: { type: String, required: true },
   flights: [
     {
       fromAirport: { type: String, required: true },
