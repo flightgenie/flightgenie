@@ -8,6 +8,4 @@ const Main: React.FC = (props: any): JSX.Element => {
 
 export default Main;
 
-const Container = styled.footer`
-  padding-top: ${props => props.offset.DESKTOP};
-`;
+const Container = styled.main``;

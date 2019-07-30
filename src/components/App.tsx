@@ -11,10 +11,9 @@ const App: React.FC = (props: any): JSX.Element => {
   return (
     <Router>
     <div id="App">
-      <Nav />
       <Main>
-        <Route path = '/trips' component = {Trips} />
-        <Route path = '/search' component = {Search} />
+        <Route exact path = '/trips' component = {Trips} />
+        <Route exact path = '/' component = {Search} />
         <Route exact path = '/login' component = {Login} />
         <Footer />
       </Main>
