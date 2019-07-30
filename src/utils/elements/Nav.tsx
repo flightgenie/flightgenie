@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { brandPrimary, brandSecondary, white } from '../';
+import { Link } from 'react-router-dom';
 
 const Nav: React.FC = (props: any): JSX.Element => {
   return (
     <NavContainer>
       <ul className="main-nav">
-        <li>Search</li>
-        <li>Trips</li>
+        <Link to = '/search'><li>Search</li></Link>
+        <Link to = '/trips'><li>Trips</li></Link>
       </ul>
       <ul className="auth">
-        <li>Login</li>
+        <Link to = 'login'><li>Sign Out</li></Link>
       </ul>
     </NavContainer>
   );
