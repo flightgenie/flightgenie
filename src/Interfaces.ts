@@ -6,31 +6,37 @@ export interface destination {
 export interface form {
   origin: string;
   roundTrip: boolean;
-  departureTime: string;
+  departureTime: number;
   numAdults: number;
   flightClass: string;
   directFlights: boolean;
-  destination: destination;
+  destinations: destination[];
 }
 
-export interface layoverLocation {
-  from: string;
-  to: string;
-  depart: string;
-  arrive: string;
-  carrier: string;
-  flight_id: number;
+export interface route {
+  fromAirport: string;
+  toAirport: string;
+  departureTime: number;
+  returnTime: number;
+  airline: string;
+  flightNumber: number;
+}
+
+export interface flight {
+  fromAirport: string;
+  toAirport: string;
+  departureTime: number;
+  arriveTime: number;
+  price: number;
+  routes: route[];
+  deep_link: string;
 }
 
 export interface trip {
-  from: string;
-  to: string;
-  depart: string;
-  arrive: string;
-  carrier: string;
-  flight_id: number;
-  cost: number;
+  destinations: destination[];
+  departureTime: number;
+  totalPrice: number;
   numAdults: number;
   flightClass: string;
-  layovers: layoverLocation[];
+  flights: flight[];
 }
