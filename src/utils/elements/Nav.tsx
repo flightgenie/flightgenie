@@ -7,7 +7,7 @@ const Nav: React.FC = (props: any): JSX.Element => {
   return (
     <NavContainer>
       <ul className="main-nav">
-        <Link to = '/search'><li>Search</li></Link>
+        <Link to = '/'><li>Search</li></Link>
         <Link to = '/trips'><li>Trips</li></Link>
       </ul>
       <ul className="auth">
