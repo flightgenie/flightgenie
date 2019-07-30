@@ -10,7 +10,7 @@ export interface form {
   numAdults: number;
   flightClass: string;
   directFlights: boolean;
-  destination: destination;
+  destinations: destination[];
 }
 
 export interface layoverLocation {
