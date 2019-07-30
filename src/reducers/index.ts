@@ -6,5 +6,5 @@ export interface StoreInterface {
 }
 
 export const reducers = combineReducers<StoreInterface>({
-  app: appReducer,
+  app: appReducer
 });
