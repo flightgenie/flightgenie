@@ -3,14 +3,6 @@ const path = require('path');
 const app = express();
 const ExpressGraphQL = require('express-graphql');
 const Mongoose = require('mongoose');
-const {
-  GraphQLID,
-  GraphQLString,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLSchema
-} = require('graphql');
 Mongoose.connect(''); // our DB url here
 
 // statically serve everything in the build folder on the route '/build'
