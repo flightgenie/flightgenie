@@ -6,7 +6,7 @@ export interface destination {
 export interface form {
   origin: string;
   roundTrip: boolean;
-  departureTime: string;
+  departureTime: Date;
   numAdults: number;
   flightClass: string;
   directFlights: boolean;
@@ -16,8 +16,8 @@ export interface form {
 export interface layoverLocation {
   from: string;
   to: string;
-  depart: string;
-  arrive: string;
+  departureTime: Date;
+  returnTime: Date;
   carrier: string;
   flight_id: number;
 }
@@ -25,8 +25,8 @@ export interface layoverLocation {
 export interface trip {
   from: string;
   to: string;
-  depart: string;
-  arrive: string;
+  departureTime: Date;
+  returnTime: Date;
   carrier: string;
   flight_id: number;
   cost: number;
