@@ -11,5 +11,6 @@ export default Wrapper;
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 5fr;
-  min-height: ${props => `calc(100vh - ${props.offset.DESKTOP})`};
+  min-height: 100vh;
+  padding-top: ${props => props.offset.DESKTOP};
 `;
