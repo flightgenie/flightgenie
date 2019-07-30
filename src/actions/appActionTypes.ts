@@ -19,7 +19,12 @@ export interface focusTripActionInterface {
   type: appActionTypes.focusTrip;
   payload?: number;
 }
-export enum appActionTypes{submitForm,getTrips,addTrip,focusTrip};
+export enum appActionTypes {
+  SUBMIT_FORM = 'SUBMIT_FORM',
+  GET_TRIPS = 'GET_TRIPS',
+  ADD_TRIP = 'ADD_TRIP',
+  FOCUS_TRIP = 'FOCUS_TRIP',
+}
 
 export type appActionInterfaceUnion =
   | submitFormActionInterface

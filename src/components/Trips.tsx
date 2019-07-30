@@ -1,23 +1,17 @@
 import React from 'react';
-import TripVisualization from './TripVisualization';
-import PastTrips from './PastTrips';
-import { useSelector } from 'react-redux';
-import { trip } from '../Interfaces';
-import { StoreInterface } from '../reducers/index';
+import { useSelector, useDispatch } from 'react-redux';
+import { submitForm } from '../actions/appActions';
+import { form } from '../interfaces';
+import { Wrapper, Sidebar } from '../utils';
 
 const Trips: React.FC = (props: any): JSX.Element => {
-  const appPastTrips = useSelector<StoreInterface, trip[]>(
-    state => state.app.pastTrips
-  );
-  const appFocusedTrip = useSelector<StoreInterface, number>(
-    state => state.app.focusedTrip
-  );
-
+  const dispatch = useDispatch();
+  const someState = useSelector(state => state.app.username);
   return (
-    <div id="Trips">
-      <TripVisualization />
-      <PastTrips />
-    </div>
+    <Wrapper>
+      <Sidebar />
+      <div />
+    </Wrapper>
   );
 };
 export default Trips;

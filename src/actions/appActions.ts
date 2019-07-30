@@ -9,10 +9,15 @@ import {
 import { destination, form, layoverLocation, trip } from '../Interfaces';
 
 export const submitForm = (form: form) => {
+  // return {
+  //   type: appActionTypes.SUBMIT_FORM,
+  //   payload: form,
+  // };
   return async (dispatch: Dispatch) => {
     // your code here ! add your own payload to the dispatched action.
     dispatch<submitFormActionInterface>({
-      type: appActionTypes.submitForm,
+      type: appActionTypes.SUBMIT_FORM,
+      payload: form,
     });
   };
 };

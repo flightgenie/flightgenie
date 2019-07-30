@@ -25,9 +25,11 @@ export const appReducer = (
   action: appActionInterfaceUnion
 ) => {
   switch (action.type) {
-    case appActionTypes.submitForm:
-      // your logic here!
-      return state;
+    case appActionTypes.SUBMIT_FORM:
+      return {
+        ...state,
+        form: action.payload,
+      };
     case appActionTypes.getTrips:
       // your logic here!
       return state;
