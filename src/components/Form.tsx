@@ -2,39 +2,44 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { submitForm } from '../actions/appActions';
-import { form } from '../interfaces';
+import { form, destination} from '../interfaces';
+
+
+
+const dest: destination = {
+  location: 'jfk',
+  numDays: 3
+}
 
 const testForm: form = {
   origin: 'lax',
   roundTrip: true,
-  departureTime: new Date(),
+  departureTime: Math.round((new Date()).getTime() / 1000), //UNIX time
   numAdults: 3,
   flightClass: 'economy',
   directFlights: false,
-  destination: 'jfk',
+  destinations: [dest],
 };
 
-const Form: React.FC = (props: any): JSX.Element => {
-  const dispatch = useDispatch();
-  const counter = useSelector(state => state.app.username);
+
+const inputForm: React.FC = (props: any): JSX.Element => {
   return (
-    <FormContainer>
-      <label>
-        Name:
-        <input type="text" name="name" />
+    <Form>
+      <label className = 'origin'>
+        Origin
+        <input className = 'text-input' type = 'text'/>
       </label>
-      <input type="submit" value="Submit" />
-      <label>
-        Name:
-        <input type="text" name="name" />
-      </label>
-      <input type="submit" value="Submit" />
-      <button onClick={() => dispatch(submitForm(testForm))}>
-        Submit Form
-      </button>
-    </FormContainer>
-  );
-};
-export default Form;
+      
+    </Form>
+    )
+  }
 
-const FormContainer = styled.form``;
+  const Form = styled.form`
+
+  `;
+
+  
+
+
+export default inputForm;
+
