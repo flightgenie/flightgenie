@@ -24,9 +24,15 @@ const testForm: form = {
 const Form: React.FC = (props: any): JSX.Element => {
   const [focused, setFocusedInput] = useState(null);
   const [ numDestinations, setNumDestinations] = useState(1);
-  const [formData, setFormData] = useState({numAdults: 1, departureDate : moment(), endDate : moment().add(7, 'days')});
+  const [formData, setFormData] = useState({numAdults: 1, 'destinationNumDays-1': 0, departureDate : moment(), endDate : moment().add(7, 'days')});
   const [startDate, setStartDate] = useState(null);
   const [airlineClass, setAirlineClass] = useState('economy');
+
+  //calculations for daystoUse state
+  let a = formData.departureDate
+  const b = formData.endDate
+  const difference = b.diff(a, 'days');
+  const [daysToUse, setDaysToUse] = useState(difference);
 
   const dispatch = useDispatch(); // for redux actions
   const username = useSelector(state => state.app.username); // for getting redux state
@@ -42,18 +48,59 @@ const Form: React.FC = (props: any): JSX.Element => {
 
   const addDestinationClick = (e: any) => {
     e.preventDefault();
+    const destinationNumDaysKey = `destinationNumDays-${numDestinations + 1}`;
     setNumDestinations(numDestinations+1)
+    setFormData(prev => ({...prev, [destinationNumDaysKey]: 0}));
+    console.log('formData from addDestinationClick', formData);
   }
 
   const renderDestinationBoxes = () => {
     return Array.from({length: numDestinations}, (_, i) => {
       return(
-    <label key = {i} className="form-label">
+        <div>
+    <label key = {`destination-input-${i}`} className="form-label">
     To
     <input onChange = {(e) => updateFormData(e, `destination-${i + 1}`)} className="text-input" type="text" name="name" />
+    Days Spent Here <span>{formData[`destinationNumDays-${i + 1}`]}</span>
+    
     </label>
+    
+    <label key = {`destination-add-day-${i}`}>
+      Add Day
+        <button onClick={() => addDestinationDay(i + 1)}>+</button>
+    </label>
+
+    <label key = {`destination-subtract-day-${i}`}>
+      Subtract Day
+        <button onClick={() => subtractDestinationDay(i + 1)}>-</button>
+    </label>
+    </div>
     )
     });
+  }
+
+  const addDestinationDay = (index) => {
+    if (daysToUse > 0) {
+      const destinationNumDaysKey = `destinationNumDays-${index}`;
+      setFormData(prev => ({...prev, [destinationNumDaysKey]: prev[destinationNumDaysKey] + 1 }))
+      setDaysToUse(daysToUse - 1);
+    } else {
+      alert('Oops! Too many days ;)')
+    }
+  }
+
+  const subtractDestinationDay = (index) => {
+    const a = formData.departureDate
+    const b = formData.endDate
+    const difference = b.diff(a, 'days');
+    const destinationNumDaysKey = `destinationNumDays-${index}`;
+    console.log('formData[destinationNumDaysKey]', formData[destinationNumDaysKey])
+    if (daysToUse < difference && formData[destinationNumDaysKey] + 1 > 1) {
+      setFormData(prev => ({...prev, [destinationNumDaysKey]: prev[destinationNumDaysKey] - 1 }))
+      setDaysToUse(daysToUse + 1);
+    } else {
+      alert('Oops! No more days left ;)')
+    }
   }
 
   const handleClass = (e: any) => {
@@ -82,7 +129,9 @@ const Form: React.FC = (props: any): JSX.Element => {
       </label>
 
       {renderDestinationBoxes()}
-
+      <p>Days Left To Use</p>
+      {daysToUse}
+    <br></br>
       <button onClick = {(e) => {addDestinationClick(e)}}>Add Destination</button>
 
       <label className="form-label">

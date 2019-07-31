@@ -17,6 +17,7 @@ export const submitForm = (form: form) => {
   const formatted = form.departureDate.format('MM/DD/YYYY');
   const formCopy = Object.assign({}, form);
   formCopy.departureDate = formatted;
+  console.log('formCopy from actions', formCopy)
   return async (dispatch: Dispatch) => {
     // your code here ! add your own payload to the dispatched action.
     dispatch<submitFormActionInterface>({
