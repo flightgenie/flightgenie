@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import * as moment from 'moment';
 import {
   appActionTypes,
   submitFormActionInterface,
@@ -13,6 +14,10 @@ export const submitForm = (form: form) => {
   //   type: appActionTypes.SUBMIT_FORM,
   //   payload: form,
   // };
+  const formatted = form.departureDate.format('MM/DD/YYYY');
+  const formCopy = Object.assign({}, form);
+  formCopy.departureDate = formatted;
+  console.log('formCopy', formCopy);
   return async (dispatch: Dispatch) => {
     // your code here ! add your own payload to the dispatched action.
     dispatch<submitFormActionInterface>({

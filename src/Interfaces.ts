@@ -7,7 +7,7 @@ export interface form {
   userId: string;
   origin: string;
   roundTrip: boolean;
-  departureDate: string;
+  departureDate: any;
   numAdults: number;
   flightClass: string;
   directFlights: boolean;
