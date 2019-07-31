@@ -11,7 +11,7 @@ const flightCabins = {
 
 const findAll = (req, res, next) => {
   Trips.find({}, (err, result) => {
-    console.log('result', result);
+    console.log('find all trips result', result);
     res.locals.trips = result.map(item => item.toObject());
     return next();
   });
@@ -22,65 +22,73 @@ const add = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    console.log('req.body and result', req.body, result, err);
+    console.log('add trip req body and result', req.body, result, err);
     // res.locals.addedTrip = result.toObject();
     return next();
   });
 };
 
-const getData = (departDate, possOrders) => {
-  const data = [];
-  for (let i = 0; possOrders.length; i += 1) {
+const getTripPrices = (req, res, next) => {
+  // origin, departDate, res.locals.possibleOrders
+
+  res.locals.possibleOrders = permutations(req.body.destinations);
+  // console.log('possible orders', res.locals.possibleOrders);
+  res.locals.tripPricePromises = [];
+  for (let i = 0; i < res.locals.possibleOrders.length; i += 1) {
+    let curDepartDate = dateFns.format(
+      new Date(req.body.departureDate),
+      'DD/MM/YYYY'
+    ); //!initialize at first date
     const locationOrder = [
       { location: req.body.origin, numDays: 0 },
-      ...possOrders[i],
+      ...res.locals.possibleOrders[i],
       { location: req.body.origin, numDays: 0 }
     ];
     const promiseArr = [];
     for (let i = 0; i < locationOrder.length - 1; i++) {
       const startLoc = locationOrder[i].location;
       const endLoc = locationOrder[i + 1].location;
-      promiseArr.push(
-        axios.get(
-          `https://api.skypicker.com/flights?` +
-            `fly_from=${startLoc}` +
-            `&fly_to=${endLoc}` +
-            `&date_from=${curDepartDate}` +
-            `&date_to=${curDepartDate}` +
-            `&currency=USD&` +
-            `flight_type=oneway` +
-            `&adults=${req.body.numAdults}` +
-            `&limit=1` +
-            `&direct_flights=${req.body.directFlights}` +
-            `&selected_cabins=${flightCabins[req.body.flightClass]}` +
-            `&partner=picky`
-        )
-      );
-
+      const query =
+        `https://api.skypicker.com/flights?` +
+        `fly_from=${startLoc}` +
+        `&fly_to=${endLoc}` +
+        `&date_from=${curDepartDate}` +
+        `&date_to=${curDepartDate}` +
+        `&curr=USD&` +
+        `flight_type=oneway` +
+        `&adults=${req.body.numAdults}` +
+        `&limit=1` +
+        `&direct_flights=${req.body.directFlights}` +
+        `&selected_cabins=${flightCabins[req.body.flightClass]}` +
+        `&partner=picky`;
+      // console.log(query);
+      promiseArr.push(axios.get(query));
       const temp = curDepartDate.split('/');
       curDepartDate = dateFns.format(
         dateFns.addDays(
           new Date(`${temp[1]}/${temp[0]}/${temp[2]}`),
-          locOrderWithOriginAdded[i + 1].numDays
+          locationOrder[i + 1].numDays
         ),
         'DD/MM/YYYY'
       );
     }
-    data.push(promiseArr);
+    res.locals.tripPricePromises.push(promiseArr);
   }
+  next();
 };
 
-const search = async (req, res, next) => {
+const prepTripDataForClient = async (req, res, next) => {
   const tripChoices = [];
-  const possibleOrders = permutations(req.body.destinations); //! find all possible orders of destinations
-  console.log(possibleOrders);
-  let curDepartDate = dateFns.format(
-    new Date(req.body.departureDate),
-    'DD/MM/YYYY'
-  ); //!initialize at first date
+  let getAllResults;
+  try {
+    getAllResults = await Promise.all(
+      res.locals.tripPricePromises.map(Promise.all.bind(Promise))
+    );
+  } catch (err) {
+    return next(err);
+  }
 
-  for (let i = 0; i < possibleOrders.length; i++) {
-    const locationOrder = possibleOrders[i];
+  for (let i = 0; i < res.locals.possibleOrders.length; i++) {
     //! loop through every order of destinations
     const currentTrip = {};
     currentTrip.userId = req.body.userId;
@@ -89,53 +97,19 @@ const search = async (req, res, next) => {
     currentTrip.numAdults = req.body.numAdults;
     currentTrip.flightClass = req.body.flightClass;
     currentTrip.directFlights = req.body.directFlights;
-    currentTrip.destinations = locationOrder;
+    currentTrip.destinations = res.locals.possibleOrders[i];
     currentTrip.flights = [];
     currentTrip.price = 0;
-    const locOrderWithOriginAdded = [
-      { location: req.body.origin, numDays: 0 },
-      ...locationOrder,
-      { location: req.body.origin, numDays: 0 }
-    ];
-    const promiseArr = [];
-    for (let i = 0; i < locOrderWithOriginAdded.length - 1; i++) {
-      const startLoc = locOrderWithOriginAdded[i].location;
-      const endLoc = locOrderWithOriginAdded[i + 1].location;
-      promiseArr.push(
-        axios.get(
-          `https://api.skypicker.com/flights?` +
-            `fly_from=${startLoc}` +
-            `&fly_to=${endLoc}` +
-            `&date_from=${curDepartDate}` +
-            `&date_to=${curDepartDate}` +
-            `&currency=USD&` +
-            `flight_type=oneway` +
-            `&adults=${req.body.numAdults}` +
-            `&limit=1` +
-            `&direct_flights=${req.body.directFlights}` +
-            `&selected_cabins=${flightCabins[req.body.flightClass]}` +
-            `&partner=picky`
-        )
-      );
-
-      const temp = curDepartDate.split('/');
-      curDepartDate = dateFns.format(
-        dateFns.addDays(
-          new Date(`${temp[1]}/${temp[0]}/${temp[2]}`),
-          locOrderWithOriginAdded[i + 1].numDays
-        ),
-        'DD/MM/YYYY'
-      );
-    }
-    let getResults;
-    try {
-      getResults = await Promise.all(promiseArr);
-    } catch (err) {
-      return next(err);
-    }
-    getResults.forEach(getResult => {
-      const currentFlight = {};
+    const getResults = getAllResults[i];
+    for (let i = 0; i < getResults.length; i += 1) {
+      const getResult = getResults[i];
+      let currentFlight = {};
       const rawFlightData = getResult.data.data[0];
+      if (getResult.data.data.length === 0) {
+        console.log('no flights found for this result');
+        currentFlight = {};
+        continue;
+      }
       currentTrip.price += rawFlightData.price;
 
       currentFlight.fromAirport = rawFlightData.flyFrom;
@@ -158,12 +132,11 @@ const search = async (req, res, next) => {
         });
       });
       currentTrip.flights.push(currentFlight);
-    });
+    }
 
     tripChoices.push(currentTrip);
   }
-  console.log('all trip choices', tripChoices);
-  // https://api.skypicker.com/flights?fly_from=LAX&fly_to=BCN&date_from=08/08/2019&date_to=08/08/2019&return_from=09/08/2019&return_to=09/08/2019&currency=USD&flight_type=round&adults=1&limit=5&partner=picky
+  // https://api.skypicker.com/flights?fly_from=LAX&fly_to=BCN&date_from=08/08/2019&date_to=08/08/2019&return_from=09/08/2019&return_to=09/08/2019&curr=USD&flight_type=round&adults=1&limit=5&partner=picky
   // do api calls and search calculations here!
   //! make sure to get the arrival time for a trip back from the LAST
   //! ROUTE OF THE LAST FLIGHT!!
@@ -198,4 +171,4 @@ const permutations = arr => {
   return perms;
 };
 
-module.exports = { findAll, add, search };
+module.exports = { findAll, add, getTripPrices, prepTripDataForClient };

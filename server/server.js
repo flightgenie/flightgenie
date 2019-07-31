@@ -14,9 +14,14 @@ app.use(bodyParser.json());
 //   res.status(200).send('yeet');
 // });
 
-app.post('/search', tripController.search, (req, res) => {
-  res.status(200).json(res.locals.tripChoices);
-}); // for submitForm
+app.post(
+  '/search',
+  tripController.getTripPrices,
+  tripController.prepTripDataForClient,
+  (req, res) => {
+    res.status(200).json(res.locals.tripChoices);
+  }
+); // for submitForm
 app.get('/trips', tripController.findAll, (req, res) => {
   res.status(200).json(res.locals.trips);
 }); //for getTrips
@@ -43,4 +48,4 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000, () => {
   console.log('listening on port 3000');
-}); 
+});
