@@ -1,23 +1,42 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const ExpressGraphQL = require('express-graphql');
-const Mongoose = require('mongoose');
-const {
-  GraphQLID,
-  GraphQLString,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLSchema
-} = require('graphql');
-Mongoose.connect(''); // our DB url here
+const tripController = require('./controllers/tripController');
+const userController = require('./controllers/userController');
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.get('/test', (req, res) => {
+  console.log('hi');
+  res.status(200).send('yeet');
+});
+
+app.post('/search', tripController.search, (req, res) => {
+  res.status(200).json(res.locals.searchResult);
+}); // for submitForm
+app.get('/trips', tripController.findAll, (req, res) => {
+  res.status(200).json(res.locals.trips);
+}); //for getTrips
+app.post('/trips', tripController.add, (req, res) => {
+  res.status(200).json(res.locals.addedTrip);
+}); // for addTrip
+
+app.post('/signup', userController.signUp, (req, res) => {
+  res.status(200).send('user added!');
+}); // for signup
+app.post('/login', (req, res) => {}); // for login
 
 // statically serve everything in the build folder on the route '/build'
 app.use('/build', express.static(path.join(__dirname, '../build')));
 // serve index.html on the route '/'
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
+});
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 app.listen(8080, () => {
