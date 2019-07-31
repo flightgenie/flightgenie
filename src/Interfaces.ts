@@ -17,7 +17,7 @@ export interface route {
   fromAirport: string;
   toAirport: string;
   departureTime: number;
-  returnTime: number;
+  arrivalTime: number;
   airline: string;
   flightNumber: number;
 }
@@ -26,17 +26,22 @@ export interface flight {
   fromAirport: string;
   toAirport: string;
   departureTime: number;
-  arriveTime: number;
+  arrivalTime: number;
   price: number;
+  deepLink: string;
   routes: route[];
-  deep_link: string;
 }
 
 export interface trip {
-  destinations: destination[];
+  userId: number;
+  origin: string;
+  roundTrip: boolean;
   departureTime: number;
-  totalPrice: number;
+  arrivalTime: number; // the time the LAST flight arrives
   numAdults: number;
   flightClass: string;
+  directFlights: boolean;
+  totalPrice: number;
+  destinations: destination[];
   flights: flight[];
 }
