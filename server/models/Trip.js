@@ -1,10 +1,19 @@
 const mongoose = require('mongoose');
+mongoose.connect(
+  'mongodb+srv://thegrandsamh:DaraSam45@developmentcluster-vjch4.mongodb.net/test?retryWrites=true&w=majority',
+  { useNewUrlParser: true }
+);
 
-export const TripSchema = new mongoose.Schema({
+const TripSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.ObjectId },
+  origin: { type: String, required: true },
+  roundTrip: { type: Boolean, required: true },
   departureTime: { type: Number, required: true },
-  totalPrice: { type: Number, required: true },
+  arrivalTime: { type: Number, required: true },
   numAdults: { type: Number, required: true },
   flightClass: { type: String, required: true },
+  directFlights: { type: Boolean, required: true },
+  totalPrice: { type: Number, required: true },
   destinations: [
     {
       location: { type: String, required: true },
@@ -18,7 +27,7 @@ export const TripSchema = new mongoose.Schema({
       departureTime: { type: Number, required: true },
       arrivalTime: { type: Number, required: true },
       price: { type: Number, required: true },
-      deep_link: { type: Number, required: true },
+      deepLink: { type: String, required: true },
       routes: [
         {
           fromAirport: { type: String, required: true },
@@ -33,4 +42,4 @@ export const TripSchema = new mongoose.Schema({
   ]
 });
 
-export default mongoose.model('Trip', TripSchema);
+module.exports = mongoose.model('Trip', TripSchema);
