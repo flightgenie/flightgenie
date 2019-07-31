@@ -1,0 +1,224 @@
+[
+  {
+    "userId": "5d40fd7d1ba8db20b5315258",
+    "origin": "LAX",
+    "roundTrip": true,
+    "numAdults": 1,
+    "flightClass": "economy",
+    "directFlights": false,
+    "destinations": [
+      {
+        "location": "BCN",
+        "numDays": 3
+      },
+      {
+        "location": "PEK",
+        "numDays": 4
+      }
+    ],
+    "flights": [
+      {
+        "fromAirport": "LAX",
+        "toAirport": "BCN",
+        "departureTime": 1565406000,
+        "price": 288,
+        "deepLink": "https://www.kiwi.com/deep?from=LAX&to=BCN&departure=09-08-2019&flightsId=243e01af46c50000aae26c70_0&price=288&passengers=1&affilid=picky&lang=en&currency=EUR&booking_token=xlfCK4DnW9vdUZ+D9I2V7oeCzQomDQeVxMNtOeojJHCepvAJOToxpgcHOu8NspDcVZQgbsA87Qad4i9qxtWat1+1HVEn2VGQgMCG40xaLR3oeBFCcf4NKA/Ka88lcJZG3ySp4FvOKogKoU3kX5RA7N8Wu5x1eqAdPARHItCIX5DADJsSehNoPgqz37nAVeRcOE4ysgMG57je7AXZLuFUoTHOYHdBdo02kgo0yc6gTz1c5yiNEQO6zjF8ii7XoxnAHyQaRfW9iiTNEk8hj3avHJ+a3PMlvyg8+M8ccVkF6j21Yvnmndw5ASyeC39FHvDrs3HGnjuzXBeI1SAR9VQlbVdugABdmsBTXEt1UTL1XEAGctHDusdDL3jihES5caF6ge4zm/sXvKu5OJ+a8euOVenduEHUUfpEAHIGpQEht8WTtJWmuWLcFANbzF40CoBiYK88/XP6nyqZqw0Bk7g5OZ+1cOZeGh8gfKxMltmHGpHdHc1Bz4PdFifqkLL+d8zQuK+uhineLx+Hc7UffYxo8krTwl5k9eRdHaGkBbCUesZ24VFpSCIrb16Ugl3eDNdhk6HqJRrBN/oIUYsVqU3TG9hO9gcweQ5s3N4IAa07apyqHhTizKdA6LWVoHSvJW+jPW/FiDd+3aRjjLLYAARjDnr2cXMPBx4UdtAlILmh5HQCrh6vzQtphf/NGw8fOPYXyClnFMqkS2TTnuFeSP4fykDpI/h/r+2BHU/rBb8lo5WYzH6hYTfIZF53bNRE4MN5CKi/tYsyR9UYodqEM4Eqj0Q0fj+NYnjp2NxPr9ZRlFNljAd412U6r+OQJxcd9OwiZkIh8gCn5gwb7p7CSSswZJCeV8nmSh4/hoCcTTNQxysLuyEBvpzZOYiH/zo8QCVpoGXR/MwnG3JYyLpAIrYmDw==",
+        "route": [
+          {
+            "fromAirport": "LAX",
+            "toAirport": "BCN",
+            "departureTime": 1565406000,
+            "arrivalTime": 1565445300,
+            "airline": "DY",
+            "flightNumber": 7110
+          }
+        ],
+        "arrivalTime": 1565445300
+      },
+      {
+        "fromAirport": "BCN",
+        "toAirport": "PEK",
+        "departureTime": 1565591100,
+        "price": 480,
+        "deepLink": "https://www.kiwi.com/deep?from=BCN&to=PEK&departure=12-08-2019&flightsId=01af18c546c80000fdcbd6c6_0%7C18c50ddc46c9000002b65533_0%7C18c50ddc46c9000002b65533_1&price=480&passengers=1&affilid=picky&lang=en&currency=EUR&booking_token=xlfCK4DnW9vdUZ+D9I2V7oeCzQomDQeVxMNtOeojJHCepvAJOToxpgcHOu8NspDcVZQgbsA87Qad4i9qxtWat1+1HVEn2VGQgMCG40xaLR3oeBFCcf4NKA/Ka88lcJZGkzaGIonERj18AECSn74rbKRfrlMBqGVsD8/9f8/cWcfzYhRwTbzYZLf6O/L1ZFQiyTFKrtzWJWP0ewHuI5Q04SaCs4djSrEFzrsY195yK8eRc5j6ySWU/79sRUIMpWd2ZfjnFHjgiIZ4DAReftCrEwl+VdvqXoQl360KhSll6Q+oDqZX2l/pRPs9MHcff+8DHAweyJsK3gwP31lbK+QdfMLjEZLTwALXE9a1tST2sN/jo3jCv19jkPIqNGFVNFWPF6mmzpNHvIj2x0Uy4WOwD/ZDd+gEZpQwt+MbrY8OkMaYDnV0neI0V49o6SYlVLRr7FY9ahPtWtEjZd3YpC51zozXo+cwHL9IgzjThpm85hI5IooEeT6kZeC8SB9BW8ItfsgCSK6E9vYtUb5c9hd/XEzYH+UBznuAyW/6pxoGXa8EdM5RiA8Nl/D2yVT5e2bkS8Mqwmv5Br91E+96J22eLEm7CDYFSKYva5KK3sDX6IUtrm7pC2xi8VEhMO3NfmbXye03JWKzCTTzG+xdR5UhqIySSiKN6/cOVcMFOzPhYaFwX6xrmgIMFENyGIP0EqRIUfOWgF2lqAACsmUqYhf2xg+1YkmA40z/CMsVrfSkEiR1p7JFGLbidSNWtsDj+n9bQH9q7CRysF6QpxjLA35P2L0yGrEJuM5sNvEwYdzvExmwORl1J5SlPg+6hR98JMzM9ZMKFbOnAgGoN2gCx6T+bQ539LCQz3DHHXVSoH57TpG4tVdqY5JcA6Kjzkbuc4Jex4nXIlYm4rOo4odbQr64EtLH9sBbb5XILD9CB3Xkcnxby37ZM8WtAGYyxNpeXroi1BZ3VWLM0dmHd5m58HGy7uJTsdyuApVEoFRn06V8zngK+KXQ9f+yGVxVBAtCSCidZmum7ULJ8LnN6f/to6W0nVlA76MGkwgeZApAiLGo+P0Kofnj2B5dyTw5TZCR6owsX3uWBLJEQ6+XZMO4MTokxKRxOuotDF0G5qgXR4NZClAURwyJGdf5NOq7MxA4Y94f",
+        "route": [
+          {
+            "fromAirport": "BCN",
+            "toAirport": "BLQ",
+            "departureTime": 1565591100,
+            "arrivalTime": 1565597400,
+            "airline": "FR",
+            "flightNumber": 9366
+          },
+          {
+            "fromAirport": "BLQ",
+            "toAirport": "SVO",
+            "departureTime": 1565647500,
+            "arrivalTime": 1565659500,
+            "airline": "SU",
+            "flightNumber": 2429
+          },
+          {
+            "fromAirport": "SVO",
+            "toAirport": "PEK",
+            "departureTime": 1565688600,
+            "arrivalTime": 1565715600,
+            "airline": "SU",
+            "flightNumber": 200
+          }
+        ],
+        "arrivalTime": 1565715600
+      },
+      {
+        "fromAirport": "PEK",
+        "toAirport": "LAX",
+        "departureTime": 1565905800,
+        "price": 724,
+        "deepLink": "https://www.kiwi.com/deep?from=PEK&to=LAX&departure=16-08-2019&flightsId=0ddc133746cc0000db69cd45_0%7C1337243e46cc0000dfef3888_0%7C1337243e46cc0000dfef3888_1&price=724&passengers=1&affilid=picky&lang=en&currency=EUR&booking_token=xlfCK4DnW9vdUZ+D9I2V7oeCzQomDQeVxMNtOeojJHCepvAJOToxpgcHOu8NspDcVZQgbsA87Qad4i9qxtWat1+1HVEn2VGQgMCG40xaLR3oeBFCcf4NKA/Ka88lcJZGG7vfWWv4m4vDE+6q/DX5HhFPwxysU7UUkoQJLu/wCmF5tP0TzWUKdS3NpYboergGD7JXCoF4BbumLaLto3LedXj/Cb89FFRan7heEy/gUdRLOzwodkk5gmq65wyuuRSBRV1D/bnsn6kuLI75dSQOLHm9mG04ib98z4BG5BcBXh/R9+tUZJUImMPFYbSGQE5TWiIxr8/dfzy0fXjH3Ml5eDGDlpNreDJw0zdjf0YnuVrwy/YJGz1mYmzejOTt6qGbY7KhF0zhtuVZBjUdtN822LiSrCbmTE9avwHIRIKMy2dMCsd35XZfZcbT0wtnATByOBC15GQOQfIvvOVHVv18jY2iaygrqmvszfAcctl1mwQCZvl/GCahfOMn6cMUrTKzGCb5LiCURBWqwOhbvCa+TPxNNUlvJjj+1MplfdD62+cfchjUmLeJ3npzZthoz/EtKCzhWb/JFi8Rac3vo+EKk6O99dkwR+3kPdQ9MDy32xz7O+mvOBzOHc1QM1zlYjZi7rmNp8D3deJyYBI7f8toxGLlE12VQiICpd7Q+IsbI2ARl68LQHiRIKKhlaie7IzGI+bOM5ZW3XVzoZsXvw7YRD7ubg8hxJVqgCUh6TnF1c2FNng+Kq0LhvhpsYPVEEOsQzJ2HbsL9BE0MzlBjC18X/O+h5yxl12Y8cHplANMON+B0btBcvBorL2DIoRmwbDyJl6cNu4t7xq9FWv+HzMBea85q2Gaz4x7AAvR/D+90gCCYQBEbRd72ZBrbuwSajUUvdxtSLdYPKGlows8223eqtRCOTc0iwPtcy3Jep2VWpmzznM6n4mN7fBMkAIS45JJsIX7qP06yVN8iE3lxKqVUhxq/z4Z3Q17t+MKOaGBrM9RLYClDeex136N+RyOnOQmvHlTVFCC7nnCRIVrSkajYkE6DLNOpsbp5aGFS9fS3qyAexc1W3O3MDklWkj3y03ueiT9hJguAkdKAdm2Clo9SwjG1S0sJz6Jka8yi0V7ZQs=",
+        "route": [
+          {
+            "fromAirport": "PEK",
+            "toAirport": "HKG",
+            "departureTime": 1565905800,
+            "arrivalTime": 1565918700,
+            "airline": "HX",
+            "flightNumber": 331
+          },
+          {
+            "fromAirport": "HKG",
+            "toAirport": "NKG",
+            "departureTime": 1565926500,
+            "arrivalTime": 1565934600,
+            "airline": "MU",
+            "flightNumber": 766
+          },
+          {
+            "fromAirport": "NKG",
+            "toAirport": "LAX",
+            "departureTime": 1566018900,
+            "arrivalTime": 1566064800,
+            "airline": "MU",
+            "flightNumber": 2855
+          }
+        ],
+        "arrivalTime": 1566064800
+      }
+    ],
+    "price": 1492
+  },
+  {
+    "userId": "5d40fd7d1ba8db20b5315258",
+    "origin": "LAX",
+    "roundTrip": true,
+    "numAdults": 1,
+    "flightClass": "economy",
+    "directFlights": false,
+    "destinations": [
+      {
+        "location": "PEK",
+        "numDays": 4
+      },
+      {
+        "location": "BCN",
+        "numDays": 3
+      }
+    ],
+    "flights": [
+      {
+        "fromAirport": "LAX",
+        "toAirport": "PEK",
+        "departureTime": 1565379000,
+        "price": 290,
+        "deepLink": "https://www.kiwi.com/deep?from=LAX&to=PEK&departure=09-08-2019&flightsId=243e0ddc46c50000641f901f_0%7C243e0ddc46c50000641f901f_1&price=290&passengers=1&affilid=picky&lang=en&currency=EUR&booking_token=xlfCK4DnW9vdUZ+D9I2V7oeCzQomDQeVxMNtOeojJHCepvAJOToxpgcHOu8NspDcVZQgbsA87Qad4i9qxtWat1+1HVEn2VGQgMCG40xaLR3oeBFCcf4NKA/Ka88lcJZGJxOIFd4L2+8LzSTfCzZRwFXqO1UhdzmHPi1Vug/91Y93rKi6zqW93A+x7SkHpOonGYL5GDLqaWQ4Z/634rQSb23Z/RUesCFVgYyJAWZ8l4fPgAHUU/HBpWqwz282S7WnODEuEoXXCN4+EPStIKfx7vplojRE1Xk5v1s1ievk8Df9Qr/3TimEFQnmmi0/y54eFgtqbXkYQl4XrYhtZ3BydlqTid7PBRCpiWY/MHSSjXvFC2WcK6orR+DVcP1Dczuo9Ly+epjd6wtpoSEnQ5PRQPtnfTdQ8Jp/ZOzbtz4O2bqalBGjMKNARW2lJaeC6g9DrrkWjTxvrnN5DCxMGyqINeep3ATfINAg/mjriFBUXB8bv9R4m5D3hDSEDveUhCbksl7lusxfXI8YOrdcM5fYx5L9FYGrpvvvKD1TwQXTV4CNuH3Kkx1HRR/wiRJPQscTX4EU98aHqX1pmftmzXxhMus4kushHkCr9nInsi/wnQj+jx9LaKUQ9iHOcd4IlB7TmbNYkrcUZ3GkwWT+ikD4EKO+vvB3K26urnOzv7wQidJe2VI9zHLj1N28L4G6tebn9gMxmcpH5KC2W5zaZoBobXEQaCR/WDDYlguZ7tK9GeHVJffES18/D0LANa11cJII64D21qyJWRsg+feyyZbEtimsVFye8R1dxxONmEFgNke6KFnE0nVbgxTKyBudlw5L4Osl6rrEtKqhvdV8ZiUA76fShsKAFA+REJxElNR2kMqLWa0mvxdOXh6gw0vfN+qsP496DtLjrPYkCCvmf60c7QlNic6c1ohs2rI7bbBP+oO9d6Ez6W3ChZaySdmY5J23Q57EUlpUXjC7tdWKewpS6fk6Z4RCcvBn326BREe3bAVpr2xsz1JGtY5OF05QjWDWZ81Q4LOIy6PG7NsCcA917Q==",
+        "route": [
+          {
+            "fromAirport": "LAX",
+            "toAirport": "PVG",
+            "departureTime": 1565379000,
+            "arrivalTime": 1565428200,
+            "airline": "MU",
+            "flightNumber": 586
+          },
+          {
+            "fromAirport": "PVG",
+            "toAirport": "PEK",
+            "departureTime": 1565443800,
+            "arrivalTime": 1565452200,
+            "airline": "MU",
+            "flightNumber": 5186
+          }
+        ],
+        "arrivalTime": 1565452200
+      },
+      {
+        "fromAirport": "PEK",
+        "toAirport": "BCN",
+        "departureTime": 1565667600,
+        "price": 454,
+        "deepLink": "https://www.kiwi.com/deep?from=PEK&to=BCN&departure=13-08-2019&flightsId=0ddc01af46c90000341acf23_0%7C0ddc01af46c90000341acf23_1&price=454&passengers=1&affilid=picky&lang=en&currency=EUR&booking_token=xlfCK4DnW9vdUZ+D9I2V7oeCzQomDQeVxMNtOeojJHCepvAJOToxpgcHOu8NspDcVZQgbsA87Qad4i9qxtWat1+1HVEn2VGQgMCG40xaLR3oeBFCcf4NKA/Ka88lcJZGX9BEQLGAiORRCLfGel6p0GxdFUCSbaITPO2wyJLf/QpoFIuSkZ4RRyaaf+PvtqhfPlwA6kRrktlUL0dvhzZHoRpz1Z+yeNftzrVAAQHTSQCNkwQuKPQfpev1PnggC14OMdIifc1nwzbWjq+ChQWhvaX8pHFkO4dAdcNFWRgtNgncAJY86u9C1yAmoomQUjeiNR5ee6KrS36vriXHzMKmK4L/NLRK2F5oAi6Hph6l+kCgP5qYZM18m4rpQBTcT8B7r0I+U+2aoVs4M2MsEz7JMIn8C8KTc8L/6o9u0xiybKBIpllO66fDXNNGd1+dd7Kn2pzc01moPoZhW0jbCbs/3S5Dh1YBb0K7RLZVhblprMy7bZIfTbkW9H1h9tjvAKkDdics6JKv+jSHzNQY7CZZ7TBsJwOlPxeu+Z+sapHhMtcOTOos1uJZwr0MFL2FqLNKWIsWD3s4b8oSrR5ihOEYgiybGn7XQePvqR8PmaeVu3F037R1wu+fAIXTj9QxV9sZKLBUrdi6+zfaCqMRXUWMPiUlQ+wo2VoFVBDv66EOtkU+helWoFvPD++oomMLfHwZygbSa+/4gIpRkzWF/s3rgUiLGDhjvwCICEdG8S2kBBk6li/vWlThCSfW96c6BQW/ADE7BW4Br8jHYs9I3LFlEWiFAOjFbvdWwRrrj/P44hfVawwOxXGAtrhfAv7QRs1KWY4/jrw5PiaxIPZK+X1tddHjUU15OT3XDEurEML9sfyLMqJJX6yMGKNjB3j7TqYDT9m1pNK2qLMBwn8NWeqd58i5nTVRmjiLn+lqxCxy7SZln8h2UAmW1TFze1K8AHAlR2c7cLsMgDFlmk9bRdg8SP1e+tXPKtYdzoHUGTgiEQ8=",
+        "route": [
+          {
+            "fromAirport": "PEK",
+            "toAirport": "SVO",
+            "departureTime": 1565667600,
+            "arrivalTime": 1565696700,
+            "airline": "SU",
+            "flightNumber": 205
+          },
+          {
+            "fromAirport": "SVO",
+            "toAirport": "BCN",
+            "departureTime": 1565713200,
+            "arrivalTime": 1565730000,
+            "airline": "SU",
+            "flightNumber": 2512
+          }
+        ],
+        "arrivalTime": 1565730000
+      },
+      {
+        "fromAirport": "BCN",
+        "toAirport": "LAX",
+        "departureTime": 1565969400,
+        "price": 609,
+        "deepLink": "https://www.kiwi.com/deep?from=BCN&to=LAX&departure=16-08-2019&flightsId=01af260246cc000036467a71_0%7C2602243e46cd46d5cf11c30d_0%7C2602243e46cd46d5cf11c30d_1%7C2602243e46cd46d5cf11c30d_2%7C2602243e46cd46d5cf11c30d_3%7C2602243e46cd46d5cf11c30d_4&price=609&passengers=1&affilid=picky&lang=en&currency=EUR&booking_token=xlfCK4DnW9vdUZ+D9I2V7oeCzQomDQeVxMNtOeojJHCepvAJOToxpgcHOu8NspDcVZQgbsA87Qad4i9qxtWat1+1HVEn2VGQgMCG40xaLR3oeBFCcf4NKA/Ka88lcJZGO/OYN+dpTYcQaw7rMRRs7ThdDzlZDlvnJk5po2wYCQycAVH93gqQ68e5LVzgrgYKVh4QBoSjj29VwKe8OAJplNVZeOOUScYSSuPy50pmEEov2tEC+9SkWogGO2Hc9cD5IDPTESrL88MEOQoNLoOkOBbjU8BTzOTfGvmy5q6aFhi2V3zD8gENzEWYzyLPqRnGdlrE5JquvVBRpbhZZ1XW7/+SqmsXt22C/zGHOV7AjVRXt0UoDrhgIuxWXfpobrYflvcaroqt8TAI0+3dsSnUv9QpUsLUQdhfRGXb8ioPRWwrj9SflPGHa28GydWz7IOVIyc2XmHF1S13fprBzcgpfyn+eTDKONeiatL/7gH+zTPX4k1ozfO+B6AI64K3W/jbTluUrqYu5ol8f4Dw48bCDp1l15YGEiBIJcHYwkSrhTRVvaFeezlgqwkPVvk3VGwzZLUo4C8GgZOxMX3Ir5oQ73s8Yu0sJOFX8CmskTmAkXKlTkRW5xEWvvEguW/PLvOBi5kEHWdpa+mETZBGo6NZzPs4Yww8rh7Mh6okas9w8DKtB/uih1nXRbYqpoOr9mbzjWh2s5LCidQHv4G6z3U172RClrU0dyIIGrt78YXGFGBSvctSBtae84kVKarrA46st9BcSiImuHPmsOZ8Li4bac7YFeIySruq1cAYDMgSXA+SbzSL9nW4qTFmQb9jSLwya3M1jSAXwBrf4QBvyey+q5ln6RaKwUKD1hUc1mLVtm4guZJpmraAqoJ1pqHMCVyRppTHouvp/67GdvcfvyHUHyt4sWUVZqJQIP0omPnDoikv2AJQNANnoO7V08/vPRavV0sW+TdR+rdMrKV/92UQgwdxpvu/exT+GHXv9klOqpG6FoteJxGLQv7OInL74w/hxZ15rVd0soqShpIWGe9jhL4nZG3K5XztvEAjXXCKqT+bI8dSJjtZy6iFM233GqJk6yaH7odfmDD8hIfHCDMsBf8pg3FrlPz4rFrMUhxRz4efzBevC/9LBDgo76BgWc4qt/bnif6VinguclzbT0oMpRdpmW5r88qQkda2q+M5pW43i2LtW3NEkZhwu55u2chPVFAq6yDsqdKdF9zgN002DPfG4RglB9TzJfGpymtWfwqpaeKK0CrQIXZQpqm7QnS4BhpJy610l9Wq3QMSczpyri6WfnF6KT29ZfopGsIyeqFRH+8oFTBL992tNXTkxcISqGu0/gl/qd/CQcw6StQlS2NMV6c2qqCYltGLecFf/LLLA+Cu8sLTpiAEcOeJv8uF",
+        "route": [
+          {
+            "fromAirport": "BCN",
+            "toAirport": "ARN",
+            "departureTime": 1565969400,
+            "arrivalTime": 1565988900,
+            "airline": "D8",
+            "flightNumber": 5522
+          },
+          {
+            "fromAirport": "ARN",
+            "toAirport": "MUC",
+            "departureTime": 1566014700,
+            "arrivalTime": 1566022500,
+            "airline": "LH",
+            "flightNumber": 2421
+          },
+          {
+            "fromAirport": "MUC",
+            "toAirport": "ORD",
+            "departureTime": 1566034800,
+            "arrivalTime": 1566069300,
+            "airline": "UA",
+            "flightNumber": 953
+          },
+          {
+            "fromAirport": "ORD",
+            "toAirport": "LAX",
+            "departureTime": 1566083400,
+            "arrivalTime": 1566099480,
+            "airline": "UA",
+            "flightNumber": 369
+          }
+        ],
+        "arrivalTime": 1566099480
+      }
+    ],
+    "price": 1353
+  }
+]
