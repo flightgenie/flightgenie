@@ -28,15 +28,20 @@ export interface flight {
   departureTime: number;
   arrivalTime: number;
   price: number;
-  deep_link: string;
+  deepLink: string;
   routes: route[];
 }
 
 export interface trip {
-  destinations: destination[];
+  userId: number;
+  origin: string;
+  roundTrip: boolean;
   departureTime: number;
-  totalPrice: number;
+  arrivalTime: number; // the time the LAST flight arrives
   numAdults: number;
   flightClass: string;
+  directFlights: boolean;
+  totalPrice: number;
+  destinations: destination[];
   flights: flight[];
 }
