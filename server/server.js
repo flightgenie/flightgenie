@@ -7,13 +7,13 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/test', (req, res) => {
-  console.log('hi');
-  res.status(200).send('yeet');
-});
+// app.get('/test', (req, res) => {
+//   console.log('hi');
+//   res.status(200).send('yeet');
+// });
 
 app.post('/search', tripController.search, (req, res) => {
-  res.status(200).json(res.locals.searchResult);
+  res.status(200).json(res.locals.tripChoices);
 }); // for submitForm
 app.get('/trips', tripController.findAll, (req, res) => {
   res.status(200).json(res.locals.trips);

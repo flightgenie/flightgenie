@@ -4,9 +4,10 @@ export interface destination {
 }
 
 export interface form {
+  userId: string;
   origin: string;
   roundTrip: boolean;
-  departureTime: number;
+  departureDate: string;
   numAdults: number;
   flightClass: string;
   directFlights: boolean;
@@ -33,15 +34,13 @@ export interface flight {
 }
 
 export interface trip {
-  userId: number;
+  userId: string;
   origin: string;
   roundTrip: boolean;
-  departureTime: number;
-  arrivalTime: number; // the time the LAST flight arrives
   numAdults: number;
   flightClass: string;
   directFlights: boolean;
-  totalPrice: number;
   destinations: destination[];
+  totalPrice: number;
   flights: flight[];
 }
