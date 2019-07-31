@@ -99,7 +99,7 @@ const prepTripDataForClient = async (req, res, next) => {
     currentTrip.directFlights = req.body.directFlights;
     currentTrip.destinations = res.locals.possibleOrders[i];
     currentTrip.flights = [];
-    currentTrip.price = 0;
+    currentTrip.totalPrice = 0;
     const getResults = getAllResults[i];
     for (let i = 0; i < getResults.length; i += 1) {
       const getResult = getResults[i];
