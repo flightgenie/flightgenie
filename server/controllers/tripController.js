@@ -30,6 +30,7 @@ const add = (req, res, next) => {
 
 const getTripPrices = (req, res, next) => {
   // origin, departDate, res.locals.possibleOrders
+  console.log('REQ BODY', req.body);
 
   res.locals.possibleOrders = permutations(req.body.destinations);
   // console.log('possible orders', res.locals.possibleOrders);
@@ -110,7 +111,7 @@ const prepTripDataForClient = async (req, res, next) => {
         currentFlight = {};
         continue;
       }
-      currentTrip.price += rawFlightData.price;
+      currentTrip.totalPrice += rawFlightData.price;
 
       currentFlight.fromAirport = rawFlightData.flyFrom;
       currentFlight.toAirport = rawFlightData.flyTo;
