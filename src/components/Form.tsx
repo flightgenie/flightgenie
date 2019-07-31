@@ -14,7 +14,7 @@ const Form: React.FC = (props: any): JSX.Element => {
   const [startDate, setStartDate] = useState(null);
   
   // Calculations for amount of days to spend in each location
-  let tripStart = formData.departureDate
+  const tripStart = formData.departureDate
   const tripEnd = formData.endDate
   const difference = tripEnd.diff(tripStart, 'days');
   const [daysToUse, setDaysToUse] = useState(difference);
@@ -30,7 +30,13 @@ const Form: React.FC = (props: any): JSX.Element => {
   }
 
   const updateDates = (date: any)=> {
-    setFormData(prev => ({...prev, departureDate: date.startDate, endDate: date.endDate}))
+    const endDate = date.endDate === null ? date.startDate : date.endDate;
+    // TODO: Fix date picker bugs
+    // const tripStart = date.startDate;
+    // const tripEnd = date.endDate;
+    // const difference = tripEnd.diff(tripStart, 'days');
+    setFormData(prev => ({...prev, departureDate: date.startDate, endDate}))
+    setDaysToUse(difference);
   }
 
   const addDestinationClick = (e: any) => {
@@ -43,7 +49,7 @@ const Form: React.FC = (props: any): JSX.Element => {
   const renderDestinationBoxes = () => {
     return Array.from({length: numDestinations}, (_, i) => {
       return(
-        <div>
+        <div key={`destination-group-${i}`}>
     <label key = {`destination-input-${i}`} className="form-label">
     To
     <input onChange = {(e) => updateFormData(e, `destination-${i + 1}`)} className="text-input" type="text" name="name" />
@@ -53,19 +59,20 @@ const Form: React.FC = (props: any): JSX.Element => {
     
     <label key = {`destination-add-day-${i}`}>
       Add Day
-        <button onClick={() => addDestinationDay(i + 1)}>+</button>
+        <button onClick={(e) => addDestinationDay(e, i + 1)}>+</button>
     </label>
 
     <label key = {`destination-subtract-day-${i}`}>
       Subtract Day
-        <button onClick={() => subtractDestinationDay(i + 1)}>-</button>
+        <button onClick={(e) => subtractDestinationDay(e, i + 1)}>-</button>
     </label>
     </div>
     )
     });
   }
 
-  const addDestinationDay = (index) => {
+  const addDestinationDay = (e, index) => {
+    e.preventDefault();
     if (daysToUse > 0) {
       const destinationNumDaysKey = `destinationNumDays-${index}`;
       setFormData(prev => ({...prev, [destinationNumDaysKey]: prev[destinationNumDaysKey] + 1 }))
@@ -76,9 +83,10 @@ const Form: React.FC = (props: any): JSX.Element => {
   }
 
   const subtractDestinationDay = (index) => {
-    const a = formData.departureDate
-    const b = formData.endDate
-    const difference = b.diff(a, 'days');
+    // TODO: Fix day subtraction bugs
+    const tripStart = formData.departureDate
+    const tripEnd = formData.endDate
+    const difference = tripEnd.diff(tripStart, 'days');
     const destinationNumDaysKey = `destinationNumDays-${index}`;
     if (daysToUse < difference && formData[destinationNumDaysKey] + 1 > 1) {
       setFormData(prev => ({...prev, [destinationNumDaysKey]: prev[destinationNumDaysKey] - 1 }))
