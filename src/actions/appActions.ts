@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import axios from 'axios';
 import * as moment from 'moment';
 import {
   appActionTypes,
@@ -44,11 +45,11 @@ export const submitForm = (form: form) => {
 
   delete formCopy.tripType;
   delete formCopy.endDate;
-
-  console.log('formCopy', formCopy);
   
   return async (dispatch: Dispatch) => {
-    // your code here ! add your own payload to the dispatched action.
+    axios.post('http://localhost:3000/search', formCopy).then( ({data}) => {
+      console.log(data);
+    });
     dispatch<submitFormActionInterface>({
       type: appActionTypes.SUBMIT_FORM,
       payload: null,
