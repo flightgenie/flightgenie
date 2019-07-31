@@ -8,23 +8,17 @@ import {
   focusTripActionInterface,
 } from './appActionTypes';
 import { destination, form, layoverLocation, trip } from '../Interfaces';
-// import console = require('console');
-// import console = require('console');
-// import console = require('console');
-// import console = require('console');
 
 export const submitForm = (form: form) => {
   // return {
   //   type: appActionTypes.SUBMIT_FORM,
   //   payload: form,
   // };
-
   const formatted = form.departureDate.format('MM/DD/YYYY');
   const formCopy = Object.assign({}, form);
   formCopy.departureDate = formatted;
   console.log('formCopy', formCopy);
   return async (dispatch: Dispatch) => {
-
     // your code here ! add your own payload to the dispatched action.
     dispatch<submitFormActionInterface>({
       type: appActionTypes.SUBMIT_FORM,

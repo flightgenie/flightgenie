@@ -5,9 +5,6 @@ import * as moment from 'moment';
 import { DateRangePicker } from 'react-dates';
 import { submitForm } from '../actions/appActions';
 import { form, destination} from '../interfaces';
-//import console = require('console');
-// import console = require('console');
-//import console = require('console');
 
 const dest: destination = {
   location: 'jfk',
@@ -40,9 +37,7 @@ const Form: React.FC = (props: any): JSX.Element => {
   }
 
   const updateDates = (date: any)=> {
-;
     setFormData(prev => ({...prev, departureDate: date.startDate, endDate: date.endDate}))
- 
   }
 
   const addDestinationClick = (e: any) => {
@@ -103,7 +98,6 @@ const Form: React.FC = (props: any): JSX.Element => {
         onDatesChange={(date) => updateDates(date)} // PropTypes.func.isRequired,
         focusedInput={focused} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
         onFocusChange={focus => setFocusedInput(focus)} // PropTypes.func.isRequired,
-        
       />
 
       <label className="form-label">
