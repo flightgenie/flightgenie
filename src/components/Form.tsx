@@ -72,14 +72,13 @@ const Form: React.FC = (props: any): JSX.Element => {
   const handleSubmitForm = (e: any) => {
     e.preventDefault();
     dispatch(submitForm(formData))
-
   }
 
   return (
     <FormContainer onSubmit={ handleSubmitForm }>
       <label className="form-label">
         Origin
-        <input onChange = {(e)=> updateFormData(e, 'origin') }className="text-input" type="text" name="name" />
+        <input onChange = {(e)=> updateFormData(e, 'origin') } className="text-input" type="text" name="name" />
       </label>
 
       {renderDestinationBoxes()}
@@ -129,7 +128,7 @@ const Form: React.FC = (props: any): JSX.Element => {
         <input onChange={(e) => updateFormData(e, "directFlightsOnly")} type = 'checkbox'></input>
       </label>
 
-      <button >
+      <button>
         Submit Form
       </button>
     </FormContainer>

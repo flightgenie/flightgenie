@@ -4,6 +4,8 @@ const app = express();
 const tripController = require('./controllers/tripController');
 const userController = require('./controllers/userController');
 var bodyParser = require('body-parser');
+const cors = require('cors');
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -39,6 +41,6 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Something broke!');
 });
 
-app.listen(8080, () => {
-  console.log('listening on port 8080');
-}); //listens on port 8080 -> http://localhost:8080/
+app.listen(3000, () => {
+  console.log('listening on port 3000');
+}); 

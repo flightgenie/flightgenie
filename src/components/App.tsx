@@ -5,6 +5,7 @@ import Login from './Login';
 import Search from './Search';
 import Trips from './Trips';
 import { Main, Nav, Footer } from '../utils';
+import SignUp from './signup'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const App: React.FC = (props: any): JSX.Element => {
@@ -15,6 +16,7 @@ const App: React.FC = (props: any): JSX.Element => {
           <Route exact path="/trips" component={Trips} />
           <Route exact path="/" component={Search} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
           <Footer />
         </Main>
       </div>
