@@ -29,32 +29,34 @@ export const submitForm = (form: form) => {
             const destinationNumDaysKey = `destinationNumDays-${destinationIndex}`;
             const numDays = formCopy[destinationNumDaysKey];
 
-            const destination = {
-                location: value,
-                numDays,
-            };
+      const destination = {
+        location: value.toUpperCase(),
+        numDays
+      }
+      
+      delete formCopy[key];
+      delete formCopy[destinationNumDaysKey];
+      allDestinations.push(destination);
+    }
+    return allDestinations;
+  }, []);
 
-            delete formCopy[key];
-            delete formCopy[destinationNumDaysKey];
-            allDestinations.push(destination);
-        }
-        return allDestinations;
-    }, []);
+  formCopy.destinations = destinations;
+  formCopy.origin = formCopy.origin.toUpperCase();
 
-    formCopy.destinations = destinations;
+  delete formCopy.tripType;
+  delete formCopy.endDate;
+  
+  return async (dispatch: Dispatch) => {
+    axios.post('http://localhost:3000/search', formCopy).then( ({data}) => {
+      console.log(data);
+      dispatch<submitFormActionInterface>({
+        type: appActionTypes.SUBMIT_FORM,
+        payload: data,
+      });
+    });
 
-    delete formCopy.tripType;
-    delete formCopy.endDate;
-
-    return async (dispatch: Dispatch) => {
-        axios.post('http://localhost:3000/search', formCopy).then(({ data }) => {
-            console.log(data);
-        });
-        dispatch<submitFormActionInterface>({
-            type: appActionTypes.SUBMIT_FORM,
-            payload: null,
-        });
-    };
+  };
 };
 
 export const getTrips = (username: string) => {
