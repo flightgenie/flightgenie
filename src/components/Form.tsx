@@ -219,6 +219,7 @@ const FormContainer = styled.form`
     max-width: 800px;
     width: 100%;
     box-shadow: ${mediumShadow};
+    max-height: 700px;
 
     .form-label {
         display: block;

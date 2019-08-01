@@ -14,6 +14,9 @@ const Nav: React.FC = (props: any): JSX.Element => {
                     <li>Trips</li>
                 </Link>
             </ul>
+            <ul>
+                <h1>Flight Genius</h1>
+            </ul>
             <ul className="auth">
                 <Link to="login">
                     <li>Sign Out</li>
@@ -26,21 +29,25 @@ const Nav: React.FC = (props: any): JSX.Element => {
 export default Nav;
 
 const NavContainer = styled.nav`
-    background: ${brandPrimary};
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem;
-    width: 100%;
+  background: ${brandPrimary};
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  width: 100%;
 
-    li {
-        color: ${white};
-        cursor: pointer;
-        font-weight: 700;
-        list-style: none;
-        text-decoration: none;
-        fontStyle &:hover {
-            color: ${brandSecondary};
-        }
+  h1{ 
+    color: white;
+  }
+
+  li {
+    color: ${white}
+    cursor: pointer;
+    font-weight: 700;
+    list-style: none;
+    text-decoration: none;
+    fontStyle
+    &:hover {
+      color: ${brandSecondary};
     }
     a {
         &:hover {

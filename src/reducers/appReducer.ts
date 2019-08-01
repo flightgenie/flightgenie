@@ -1,6 +1,6 @@
 import { appActionInterfaceUnion, appActionTypes } from '../actions/appActionTypes';
 import { destination, form, layoverLocation, trip } from '../Interfaces';
-import { simpleData, complexData } from '../utils/mockTripData';
+import { simpleData, complexData, mockSearchResult } from '../utils/mockData';
 
 export interface appStoreSliceInterface {
     form: form;
@@ -13,33 +13,35 @@ export interface appStoreSliceInterface {
 const initialState: appStoreSliceInterface = {
     form: {},
     pastTrips: [simpleData, complexData],
-    tripChoices: [],
+    tripChoices: mockSearchResult,
     username: 'bob',
     focusedTripIndex: 0,
 };
 
-export const appReducer = (
-  state: appStoreSliceInterface = initialState,
-  action: appActionInterfaceUnion
-) => {
-  switch (action.type) {
-    case appActionTypes.SUBMIT_FORM:
-      return {
-        ...state,
-        tripChoices : action.payload
-      };
-    case appActionTypes.GET_TRIPS:
-      // your logic here!
-      return state;
-    case appActionTypes.ADD_TRIP:
-      // your logic here!
-      return state;
-    case appActionTypes.FOCUS_TRIP:
-      return {
-        ...state,
-        focusedTripIndex: action.payload
-      }
-    default:
-      return state;
-  }
+export const appReducer = (state: appStoreSliceInterface = initialState, action: appActionInterfaceUnion) => {
+    switch (action.type) {
+        case appActionTypes.SUBMIT_FORM:
+            return {
+                ...state,
+                tripChoices: action.payload,
+            };
+        case appActionTypes.GET_TRIPS:
+            // your logic here!
+            return state;
+        case appActionTypes.ADD_TRIP:
+            // your logic here!
+            const pastTrips = [...state.pastTrips]
+            pastTrips.push(action.payload)
+            return {
+              ...state,
+              pastTrips,
+            };
+        case appActionTypes.FOCUS_TRIP:
+            return {
+                ...state,
+                focusedTripIndex: action.payload,
+            };
+        default:
+            return state;
+    }
 };

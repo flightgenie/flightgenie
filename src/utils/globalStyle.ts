@@ -18,4 +18,26 @@ export default createGlobalStyle`
   a{
     text-decoration: none;
   }
+  button{
+    background: white;
+    color: rebeccapurple;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 4px 8px;
+    margin: 4px;
+  }
+  button:hover {
+    outline: none;
+    color: white;
+    background: rebeccapurple;
+    cursor: pointer;
+  }
+
+  button:focus {
+      outline: none;
+      color: white;
+      background: rebeccapurple;
+      color: white;
+  }
 `;
