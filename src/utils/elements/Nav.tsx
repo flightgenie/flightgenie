@@ -32,7 +32,7 @@ const NavContainer = styled.nav`
   background: ${brandPrimary};
   display: flex;
   justify-content: space-between;
-  padding: 2rem;
+  padding: 0.3rem;
   width: 100%;
 
   h1{ 
@@ -45,6 +45,7 @@ const NavContainer = styled.nav`
     font-weight: 700;
     list-style: none;
     text-decoration: none;
+    padding: 0.5em 1em 0em 1em;
     fontStyle
     &:hover {
       color: ${brandSecondary};

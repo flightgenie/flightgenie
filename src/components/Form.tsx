@@ -211,7 +211,7 @@ const Form: React.FC = (props: any): JSX.Element => {
 export default Form;
 
 const FormContainer = styled.form`
-    padding: 2rem;
+    padding: 1rem;
     background: ${brandSecondary};
     border-radius: 5px;
     max-width: 800px;

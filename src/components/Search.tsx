@@ -25,5 +25,5 @@ const Container = styled.div`
     grid-template-columns: 3fr 5fr;
     justify-content: center;
     grid-gap: 2rem;
-    padding: 2rem;
+    padding: 1.7rem;
 `;
