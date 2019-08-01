@@ -15,7 +15,7 @@ const Nav: React.FC = (props: any): JSX.Element => {
                 </Link>
             </ul>
             <ul>
-                <h1>Flight Genius</h1>
+                <h1>✈️ ManyFlights ✈️</h1>
             </ul>
             <ul className="auth">
                 <Link to="login">

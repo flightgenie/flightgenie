@@ -6,15 +6,23 @@ export interface appStoreSliceInterface {
     form: form;
     pastTrips: trip[];
     tripChoices: trip[];
-    username: string;
+    userId: string;
     focusedTripIndex: number;
 }
 
+// const mockInitialState: appStoreSliceInterface = {
+//     form: {},
+//     pastTrips: [simpleData, complexData],
+//     tripChoices: mockSearchResult,
+//     username: 'bob',
+//     focusedTripIndex: 0,
+// };
+
 const initialState: appStoreSliceInterface = {
     form: {},
-    pastTrips: [simpleData, complexData],
-    tripChoices: mockSearchResult,
-    username: 'bob',
+    pastTrips: [],
+    tripChoices: [],
+    userId: 'bob',
     focusedTripIndex: 0,
 };
 
@@ -30,11 +38,11 @@ export const appReducer = (state: appStoreSliceInterface = initialState, action:
             return state;
         case appActionTypes.ADD_TRIP:
             // your logic here!
-            const pastTrips = [...state.pastTrips]
-            pastTrips.push(action.payload)
+            const pastTrips = [...state.pastTrips];
+            pastTrips.push(action.payload);
             return {
-              ...state,
-              pastTrips,
+                ...state,
+                pastTrips,
             };
         case appActionTypes.FOCUS_TRIP:
             return {

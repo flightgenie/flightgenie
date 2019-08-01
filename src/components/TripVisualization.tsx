@@ -38,45 +38,47 @@ const TripVisualization: React.FC = (props: any): JSX.Element => {
     }, []);
 
     useEffect(() => {
-        layerRef.current.clearLayers();
-        const allLatLngs: [number, number][] = [];
-        const newDestinationArr: [string, string][][] = [];
-        const newFlightColors: string[] = [];
-        focusedTrip.flights.forEach(flight => {
-            let destinationsForFlight: [string, string][] = [];
-            let randomColor = jacobColors[Math.floor(Math.random() * jacobColors.length)];
-            while (newFlightColors.indexOf(randomColor) > -1) {
-                randomColor = jacobColors[Math.floor(Math.random() * jacobColors.length)];
-            }
-            const currentColor = randomColor;
-            flight.routes.forEach((route, i) => {
-                destinationsForFlight.push([route.fromAirport, route.toAirport]);
-                allLatLngs.push(route.latLngFrom);
-                if (i === flight.routes.length - 1) {
-                    allLatLngs.push(route.latLngTo);
+        if (focusedTrip) {
+            layerRef.current.clearLayers();
+            const allLatLngs: [number, number][] = [];
+            const newDestinationArr: [string, string][][] = [];
+            const newFlightColors: string[] = [];
+            focusedTrip.flights.forEach(flight => {
+                let destinationsForFlight: [string, string][] = [];
+                let randomColor = jacobColors[Math.floor(Math.random() * jacobColors.length)];
+                while (newFlightColors.indexOf(randomColor) > -1) {
+                    randomColor = jacobColors[Math.floor(Math.random() * jacobColors.length)];
                 }
-                L.swoopyArrow(route.latLngFrom, route.latLngTo, {
-                    label: '',
-                    color: currentColor,
-                    labelColor: currentColor,
-                    html:
-                        `<span style="color: white; background-color: black;` +
-                        `border-radius: 10px; padding: 10px; font-size: 12px; margin-bottom: 20px">${
-                            route.fromAirport
-                        }</span>`,
-                    weight: 4,
-                    labelFontSize: 10,
-                    iconAnchor: [40, 20],
-                    iconSize: [60, 20],
-                    hideArrowHead: true,
-                }).addTo(layerRef.current);
+                const currentColor = randomColor;
+                flight.routes.forEach((route, i) => {
+                    destinationsForFlight.push([route.fromAirport, route.toAirport]);
+                    allLatLngs.push(route.latLngFrom);
+                    if (i === flight.routes.length - 1) {
+                        allLatLngs.push(route.latLngTo);
+                    }
+                    L.swoopyArrow(route.latLngFrom, route.latLngTo, {
+                        label: '',
+                        color: currentColor,
+                        labelColor: currentColor,
+                        html:
+                            `<span style="color: white; background-color: black;` +
+                            `border-radius: 10px; padding: 10px; font-size: 12px; margin-bottom: 20px">${
+                                route.fromAirport
+                            }</span>`,
+                        weight: 4,
+                        labelFontSize: 10,
+                        iconAnchor: [40, 20],
+                        iconSize: [60, 20],
+                        hideArrowHead: true,
+                    }).addTo(layerRef.current);
+                });
+                newFlightColors.push(currentColor);
+                newDestinationArr.push(destinationsForFlight);
             });
-            newFlightColors.push(currentColor);
-            newDestinationArr.push(destinationsForFlight);
-        });
-        setMapCenter(centroid(allLatLngs));
-        setFlightColors(newFlightColors);
-        setDestinationArray(newDestinationArr);
+            setMapCenter(centroid(allLatLngs));
+            setFlightColors(newFlightColors);
+            setDestinationArray(newDestinationArr);
+        }
     }, [focusedTripIndex]);
 
     const flightDisplayComponents = destinationArray.map((flightDestinations, i) => (
@@ -90,7 +92,6 @@ const TripVisualization: React.FC = (props: any): JSX.Element => {
                 style={{
                     display: 'flex',
                     padding: '5px',
-                    height: '15%',
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}
