@@ -60,12 +60,13 @@ export const submitForm = (form: form) => {
     };
 };
 
-export const getTrips = (username: string) => {
+export const getTrips = (trips: any ) => {
     return async (dispatch: Dispatch) => {
         // your code here ! add your own payload to the dispatched action.
- 
+        console.log('trips in actions', trips)
         dispatch<getTripsActionInterface>({
             type: appActionTypes.GET_TRIPS,
+            payload: trips
         });
     };
 };

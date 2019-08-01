@@ -101,7 +101,7 @@ const TripVisualization: React.FC = (props: any): JSX.Element => {
                 id="map"
                 style={{
                     height: '70%',
-                    margin: '0px 40px 20px 40px',
+                    margin: '20px',
                     border: '2px solid black',
                     borderRadius: '10px',
                 }}

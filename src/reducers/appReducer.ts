@@ -27,6 +27,10 @@ export const appReducer = (state: appStoreSliceInterface = initialState, action:
             };
         case appActionTypes.GET_TRIPS:
             // your logic here!
+            return {
+                ...state,
+                pastTrips: action.payload,
+            }
             return state;
         case appActionTypes.ADD_TRIP:
             // your logic here!
