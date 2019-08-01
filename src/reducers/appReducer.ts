@@ -28,15 +28,17 @@ export const appReducer = (
         ...state,
         tripChoices : action.payload
       };
-    case appActionTypes.getTrips:
+    case appActionTypes.GET_TRIPS:
       // your logic here!
       return state;
-    case appActionTypes.addTrip:
+    case appActionTypes.ADD_TRIP:
       // your logic here!
       return state;
-    case appActionTypes.focusTrip:
-      // your logic here!
-      return state;
+    case appActionTypes.FOCUS_TRIP:
+      return {
+        ...state,
+        focusedTripIndex: action.payload
+      }
     default:
       return state;
   }
