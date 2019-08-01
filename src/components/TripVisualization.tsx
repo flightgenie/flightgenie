@@ -39,11 +39,9 @@ const TripVisualization: React.FC = (props: any): JSX.Element => {
 
     useEffect(() => {
         layerRef.current.clearLayers();
-
         const allLatLngs: [number, number][] = [];
         const newDestinationArr: [string, string][][] = [];
         const newFlightColors: string[] = [];
-        console.log('changeddsddd');
         focusedTrip.flights.forEach(flight => {
             let destinationsForFlight: [string, string][] = [];
             let randomColor = jacobColors[Math.floor(Math.random() * jacobColors.length)];
