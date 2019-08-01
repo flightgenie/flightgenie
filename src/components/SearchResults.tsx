@@ -127,7 +127,7 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
                         <h3>${trip.totalPrice}</h3>
                         <button
                             onClick={() => {
-                                dispatch(addTrip(trip));
+                                dispatch(addTrip(trip))
                             }}
                         >
                             add to My Trips
