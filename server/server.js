@@ -32,7 +32,9 @@ app.post('/trips', tripController.add, (req, res) => {
 app.post('/signup', userController.signUp, (req, res) => {
   res.status(200).send('user added!');
 }); // for signup
-app.post('/login', (req, res) => {}); // for login
+app.post('/login', userController.login, (req, res) => {
+  res.status(200).send(res.locals.user_id)
+}); // for login
 
 // statically serve everything in the build folder on the route '/build'
 app.use('/build', express.static(path.join(__dirname, '../build')));

@@ -10,7 +10,14 @@ const signUp = (req, res, next) => {
     return next();
   });
 };
+const login = (req, res, next) => {
 
+  Users.find(req.body, (err, result) => {
+    if (err) return next(err);
+    res.locals.user_id = result[0]._id;
+    return next()
+  })
+}
 const nukeUsers = () => {
   Users.deleteMany({}, err => {
     console.log('deleted users collection');
@@ -19,4 +26,4 @@ const nukeUsers = () => {
 
 // nukeUsers();
 
-module.exports = { signUp };
+module.exports = { signUp, login };
