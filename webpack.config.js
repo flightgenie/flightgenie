@@ -14,7 +14,9 @@ module.exports = {
     },
     mode: mode,
     devServer: {
-        publicPath: '/build/',
+        contentBase: path.join(__dirname, 'build'),
+        compress: false,
+        port: 8080,
     },
     module: {
         rules: [
