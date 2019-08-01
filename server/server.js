@@ -14,25 +14,30 @@ app.use(bodyParser.json());
 //   res.status(200).send('yeet');
 // });
 
-app.post('/search', tripController.getTripPrices, tripController.prepTripDataForClient, (req, res) => {
-    res.status(200).json(res.locals.tripChoices);
-}); // for submitForm
-app.get('/trips/:userId', tripController.findAll, (req, res) => {
+app.post(
+    'http://ec2-3-83-149-27.compute-1.amazonaws.com/search',
+    tripController.getTripPrices,
+    tripController.prepTripDataForClient,
+    (req, res) => {
+        res.status(200).json(res.locals.tripChoices);
+    },
+); // for submitForm
+app.get('http://ec2-3-83-149-27.compute-1.amazonaws.com/trips/:userId', tripController.findAll, (req, res) => {
     res.status(200).json(res.locals.trips);
 }); //for getTrips
-app.post('/trips', tripController.add, (req, res) => {
+app.post('http://ec2-3-83-149-27.compute-1.amazonaws.com/trips', tripController.add, (req, res) => {
     res.status(200).send('yay! added a trip');
 }); // for addTrip
 
-app.post('/signup', userController.signUp, (req, res) => {
+app.post('http://ec2-3-83-149-27.compute-1.amazonaws.com/signup', userController.signUp, (req, res) => {
     res.status(200).send('user added!');
 }); // for signup
-app.post('/login', (req, res) => {}); // for login
+app.post('http://ec2-3-83-149-27.compute-1.amazonaws.com/login', (req, res) => {}); // for login
 
 // statically serve everything in the build folder on the route '/build'
-app.use('/', express.static(path.join(__dirname, '../build')));
+app.use('http://ec2-3-83-149-27.compute-1.amazonaws.com/', express.static(path.join(__dirname, '../build')));
 // serve index.html on the route '/'
-app.get('/', (req, res) => {
+app.get('http://ec2-3-83-149-27.compute-1.amazonaws.com/', (req, res) => {
     res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
