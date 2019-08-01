@@ -30,7 +30,12 @@ export const appReducer = (state: appStoreSliceInterface = initialState, action:
             return state;
         case appActionTypes.ADD_TRIP:
             // your logic here!
-            return state;
+            const pastTrips = [...state.pastTrips]
+            pastTrips.push(action.payload)
+            return {
+              ...state,
+              pastTrips,
+            };
         case appActionTypes.FOCUS_TRIP:
             return {
                 ...state,

@@ -125,7 +125,7 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
                         <h3>Trip {tripIndex + 1} </h3>
                         <button
                             onClick={() => {
-                                console.log('aaaahehe');
+                                dispatch(addTrip(trip))
                             }}
                         >
                             add to My Trips

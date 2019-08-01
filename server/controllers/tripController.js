@@ -26,6 +26,7 @@ const findAll = (req, res, next) => {
 };
 
 const add = (req, res, next) => {
+    console.log('entered tripcontroller.add')
     Trips.create(req.body, (err, result) => {
         if (err) {
             return next(err);
