@@ -1,6 +1,7 @@
 const mode = process.env.NODE_ENV;
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     entry: './src/index.tsx',
@@ -17,8 +18,8 @@ module.exports = {
         contentBase: path.join(__dirname, 'build'),
         compress: false,
         port: 8080,
+        hot: true,
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()],
     module: {
         rules: [
             { test: /\.(ts|tsx)$/, exclude: /node-modules/, loader: 'babel-loader' },
@@ -52,5 +53,6 @@ module.exports = {
             template: './index.html',
             filename: './index.html',
         }),
+        new webpack.HotModuleReplacementPlugin(),
     ],
 };
