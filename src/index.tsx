@@ -21,3 +21,9 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root'),
 );
+
+if (module.hot) {
+    module.hot.accept('./components/App', function() {
+        console.log('Accepting the updated printMe module!');
+    });
+}
