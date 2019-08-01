@@ -19,6 +19,8 @@ export interface route {
   toAirport: string;
   departureTime: number;
   arrivalTime: number;
+  latLngFrom: [number, number];
+  latLngTo: [number, number];
   airline: string;
   flightNumber: number;
 }

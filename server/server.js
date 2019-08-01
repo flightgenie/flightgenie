@@ -22,11 +22,11 @@ app.post(
     res.status(200).json(res.locals.tripChoices);
   }
 ); // for submitForm
-app.get('/trips', tripController.findAll, (req, res) => {
+app.get('/trips/:userId', tripController.findAll, (req, res) => {
   res.status(200).json(res.locals.trips);
 }); //for getTrips
 app.post('/trips', tripController.add, (req, res) => {
-  res.status(200).json(res.locals.addedTrip);
+  res.status(200).send('yay! added a trip');
 }); // for addTrip
 
 app.post('/signup', userController.signUp, (req, res) => {

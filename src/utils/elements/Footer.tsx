@@ -18,7 +18,7 @@ const FooterContainer = styled.footer`
   color: ${white};
   display: flex;
   justify-content: center;
-  padding: 1rem;
+  padding: 1em;
   position: absolute;
   width: 100%;
 `;

@@ -1,23 +1,24 @@
 import {
   appActionInterfaceUnion,
-  appActionTypes,
+  appActionTypes
 } from '../actions/appActionTypes';
 import { destination, form, layoverLocation, trip } from '../Interfaces';
+import { simpleData, complexData } from '../utils/mockTripData';
 
 export interface appStoreSliceInterface {
   form: form;
   pastTrips: trip[];
   tripChoices: trip[];
   username: string;
-  focusedTrip: number;
+  focusedTripIndex: number;
 }
 
 const initialState: appStoreSliceInterface = {
   form: {},
-  pastTrips: [],
+  pastTrips: [simpleData, complexData],
   tripChoices: [],
   username: 'bob',
-  focusedTrip: 0,
+  focusedTripIndex: 0
 };
 
 export const appReducer = (
@@ -28,7 +29,7 @@ export const appReducer = (
     case appActionTypes.SUBMIT_FORM:
       return {
         ...state,
-        form: action.payload,
+        form: action.payload
       };
     case appActionTypes.getTrips:
       // your logic here!

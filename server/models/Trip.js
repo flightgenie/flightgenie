@@ -8,8 +8,6 @@ const TripSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.ObjectId },
   origin: { type: String, required: true },
   roundTrip: { type: Boolean, required: true },
-  departureTime: { type: Number, required: true },
-  arrivalTime: { type: Number, required: true },
   numAdults: { type: Number, required: true },
   flightClass: { type: String, required: true },
   directFlights: { type: Boolean, required: true },
@@ -35,7 +33,9 @@ const TripSchema = new mongoose.Schema({
           departureTime: { type: Number, required: true },
           arrivalTime: { type: Number, required: true },
           airline: { type: String, required: true },
-          flightNumber: { type: Number, required: true }
+          flightNumber: { type: Number, required: true },
+          latLngFrom: [{ type: Number, required: true }],
+          latLngTo: [{ type: Number, required: true }]
         }
       ]
     }
