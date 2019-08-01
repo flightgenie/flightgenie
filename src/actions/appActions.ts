@@ -10,6 +10,7 @@ import {
 } from './appActionTypes';
 import { destination, form, layoverLocation, trip } from '../Interfaces';
 
+
 export const submitForm = (form: form) => {
     console.log('this is what imt gettoimg;', form);
     const formCopy = Object.assign({}, form);
@@ -62,17 +63,24 @@ export const submitForm = (form: form) => {
 export const getTrips = (username: string) => {
     return async (dispatch: Dispatch) => {
         // your code here ! add your own payload to the dispatched action.
+ 
         dispatch<getTripsActionInterface>({
             type: appActionTypes.GET_TRIPS,
         });
     };
 };
-export const addTrip = (tripIndex: number) => {
+export const addTrip = (tripIndex: trip) => {
+    const tripCopy = tripIndex;
+    tripCopy.userId = '578df3efb618f5141202a196';
     return async (dispatch: Dispatch) => {
         // your code here ! add your own payload to the dispatched action.
-        dispatch<addTripActionInterface>({
-            type: appActionTypes.ADD_TRIP,
-        });
+        axios.post('http://localhost:3000/trips', tripCopy).then(({data}) => {
+            console.log('after axios addtrip', data);
+            dispatch<addTripActionInterface>({
+                type: appActionTypes.ADD_TRIP,
+                payload: tripIndex
+            });
+        })
     };
 };
 export const focusTrip = (tripIndex: number): focusTripActionInterface => {
