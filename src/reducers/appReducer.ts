@@ -28,7 +28,7 @@ export const appReducer = (
     case appActionTypes.SUBMIT_FORM:
       return {
         ...state,
-        form: action.payload,
+        tripChoices : action.payload
       };
     case appActionTypes.getTrips:
       // your logic here!

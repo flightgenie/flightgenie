@@ -30,7 +30,7 @@ export const submitForm = (form: form) => {
       const numDays = formCopy[destinationNumDaysKey];
 
       const destination = {
-        location: value,
+        location: value.toUpperCase(),
         numDays
       }
       
@@ -42,6 +42,7 @@ export const submitForm = (form: form) => {
   }, []);
 
   formCopy.destinations = destinations;
+  formCopy.origin = formCopy.origin.toUpperCase();
 
   delete formCopy.tripType;
   delete formCopy.endDate;
@@ -49,11 +50,12 @@ export const submitForm = (form: form) => {
   return async (dispatch: Dispatch) => {
     axios.post('http://localhost:3000/search', formCopy).then( ({data}) => {
       console.log(data);
+      dispatch<submitFormActionInterface>({
+        type: appActionTypes.SUBMIT_FORM,
+        payload: data,
+      });
     });
-    dispatch<submitFormActionInterface>({
-      type: appActionTypes.SUBMIT_FORM,
-      payload: null,
-    });
+
   };
 };
 export const getTrips = (username: string) => {
