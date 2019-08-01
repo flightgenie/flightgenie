@@ -6,30 +6,23 @@ import { DateRangePicker } from 'react-dates';
 import { submitForm } from '../actions/appActions';
 import { form, destination} from '../interfaces';
 
-const dest: destination = {
-  location: 'jfk',
-  numDays: 3
-}
-
-const testForm: form = {
-  origin: 'lax',
-  roundTrip: true,
-  departureDate: '', //UNIX time
-  numAdults: 3,
-  flightClass: 'economy',
-  directFlights: false,
-  destinations: [dest],
-};
-
 const Form: React.FC = (props: any): JSX.Element => {
+  // React state hooks
   const [focused, setFocusedInput] = useState(null);
-  const [ numDestinations, setNumDestinations] = useState(1);
-  const [formData, setFormData] = useState({numAdults: 1, departureDate : moment(), endDate : moment().add(7, 'days')});
+  const [numDestinations, setNumDestinations] = useState(1);
+  const [formData, setFormData] = useState({numAdults: 1, 'destinationNumDays-1': 0, departureDate : moment(), endDate : moment().add(7, 'days'), flightClass: 'economy'});
   const [startDate, setStartDate] = useState(null);
-  const [airlineClass, setAirlineClass] = useState('economy');
+  
+  // Calculations for amount of days to spend in each location
+  const tripStart = formData.departureDate
+  const tripEnd = formData.endDate
+  const difference = tripEnd.diff(tripStart, 'days');
+  const [daysToUse, setDaysToUse] = useState(difference);
 
-  const dispatch = useDispatch(); // for redux actions
-  const username = useSelector(state => state.app.username); // for getting redux state
+
+  // Redux hooks
+  const dispatch = useDispatch();
+  const username = useSelector(state => state.app.username);
 
   const updateFormData = (e: any, property: any) => {
     const inputValue = e.target.type === "checkbox" ? e.target.checked : e.target.value;
@@ -37,36 +30,75 @@ const Form: React.FC = (props: any): JSX.Element => {
   }
 
   const updateDates = (date: any)=> {
-    setFormData(prev => ({...prev, departureDate: date.startDate, endDate: date.endDate}))
+    const endDate = date.endDate === null ? date.startDate : date.endDate;
+    // TODO: Fix date picker bugs
+    // const tripStart = date.startDate;
+    // const tripEnd = date.endDate;
+    // const difference = tripEnd.diff(tripStart, 'days');
+    setFormData(prev => ({...prev, departureDate: date.startDate, endDate}))
+    setDaysToUse(difference);
   }
 
   const addDestinationClick = (e: any) => {
     e.preventDefault();
+    const destinationNumDaysKey = `destinationNumDays-${numDestinations + 1}`;
     setNumDestinations(numDestinations+1)
+    setFormData(prev => ({...prev, [destinationNumDaysKey]: 0}));
   }
 
   const renderDestinationBoxes = () => {
     return Array.from({length: numDestinations}, (_, i) => {
       return(
-    <label key = {i} className="form-label">
+        <div key={`destination-group-${i}`}>
+    <label key = {`destination-input-${i}`} className="form-label">
     To
     <input onChange = {(e) => updateFormData(e, `destination-${i + 1}`)} className="text-input" type="text" name="name" />
+    Days Spent Here <span>{formData[`destinationNumDays-${i + 1}`]}</span>
+    
     </label>
+    
+    <label key = {`destination-add-day-${i}`}>
+      Add Day
+        <button onClick={(e) => addDestinationDay(e, i + 1)}>+</button>
+    </label>
+
+    <label key = {`destination-subtract-day-${i}`}>
+      Subtract Day
+        <button onClick={(e) => subtractDestinationDay(e, i + 1)}>-</button>
+    </label>
+    </div>
     )
     });
   }
 
-  const handleClass = (e: any) => {
-    setFormData(prev => ({...prev, 'class': e.target.value}))
+  const addDestinationDay = (e, index) => {
+    e.preventDefault();
+    if (daysToUse > 0) {
+      const destinationNumDaysKey = `destinationNumDays-${index}`;
+      setFormData(prev => ({...prev, [destinationNumDaysKey]: prev[destinationNumDaysKey] + 1 }))
+      setDaysToUse(daysToUse - 1);
+    } else {
+      alert(`You don't have enough days left!`)
+    }
   }
+
+  const subtractDestinationDay = (index) => {
+    // TODO: Fix day subtraction bugs
+    const tripStart = formData.departureDate
+    const tripEnd = formData.endDate
+    const difference = tripEnd.diff(tripStart, 'days');
+    const destinationNumDaysKey = `destinationNumDays-${index}`;
+    if (daysToUse < difference && formData[destinationNumDaysKey] + 1 > 1) {
+      setFormData(prev => ({...prev, [destinationNumDaysKey]: prev[destinationNumDaysKey] - 1 }))
+      setDaysToUse(daysToUse + 1);
+    } else {
+      alert(`You don't have that many days!`)
+    }
+  }
+
   const addPassenger = (e: any) => {
     e.preventDefault();
     setFormData((prev) => ({...prev, numAdults: prev.numAdults + 1}))
-  }
-  const renderPassengers = () => {
-    return (
-     <div>{formData.numAdults}</div>
-    )
   }
 
   const handleSubmitForm = (e: any) => {
@@ -80,9 +112,10 @@ const Form: React.FC = (props: any): JSX.Element => {
         Origin
         <input onChange = {(e)=> updateFormData(e, 'origin') } className="text-input" type="text" name="name" />
       </label>
-
       {renderDestinationBoxes()}
-
+      <p>Days Left To Use</p>
+      {daysToUse}
+    <br></br>
       <button onClick = {(e) => {addDestinationClick(e)}}>Add Destination</button>
 
       <label className="form-label">
@@ -90,26 +123,26 @@ const Form: React.FC = (props: any): JSX.Element => {
       </label>
 
       <DateRangePicker
-        startDate={formData.departureDate} // momentPropTypes.momentObj or null,
-        startDateId="start-date" // PropTypes.string.isRequired,
-        endDate={formData.endDate} // momentPropTypes.momentObj or null,
-        endDateId="end-date" // PropTypes.string.isRequired,
-        onDatesChange={(date) => updateDates(date)} // PropTypes.func.isRequired,
-        focusedInput={focused} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-        onFocusChange={focus => setFocusedInput(focus)} // PropTypes.func.isRequired,
+        startDate={formData.departureDate}
+        startDateId="start-date"
+        endDate={formData.endDate}
+        endDateId="end-date"
+        onDatesChange={(date) => updateDates(date)}
+        focusedInput={focused}
+        onFocusChange={focus => setFocusedInput(focus)}
       />
 
       <label className="form-label">
         Number of Passengers:
         <div>
-          {renderPassengers()}
+         <p>{formData.numAdults}</p>
           <button onClick = {addPassenger}>+</button>
         </div>
 
       </label>
       <label className = 'form-label'>
         Airline Class: 
-      <select onChange = {(e) => updateFormData(e, 'airline-class')} defaultValue="economy">
+      <select onChange = {(e) => updateFormData(e, 'flightClass')} defaultValue="economy">
         <option value="economy">Economy</option>
         <option value="business">Business</option>
         <option value="first-class"> First Class</option>
@@ -125,7 +158,7 @@ const Form: React.FC = (props: any): JSX.Element => {
 
       <label className = 'form-label'>
         Direct Flights Only
-        <input onChange={(e) => updateFormData(e, "directFlightsOnly")} type = 'checkbox'></input>
+        <input onChange={(e) => updateFormData(e, "directFlights")} type = 'checkbox'></input>
       </label>
 
       <button>
@@ -134,6 +167,7 @@ const Form: React.FC = (props: any): JSX.Element => {
     </FormContainer>
   );
 };
+
 export default Form;
 
 const FormContainer = styled.form`
