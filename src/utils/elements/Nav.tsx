@@ -14,6 +14,9 @@ const Nav: React.FC = (props: any): JSX.Element => {
                     <li>Trips</li>
                 </Link>
             </ul>
+            <ul>
+                <h1>Flight Genius</h1>
+            </ul>
             <ul className="auth">
                 <Link to="login">
                     <li>Sign Out</li>
@@ -31,6 +34,10 @@ const NavContainer = styled.nav`
   justify-content: space-between;
   padding: 2rem;
   width: 100%;
+
+  h1{ 
+    color: white;
+  }
 
   li {
     color: ${white}

@@ -21,7 +21,7 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
                     style={{ borderBottom: '1px solid blue', fontSize: '12px', padding: '2px 0px' }}
                     key={uuid()}
                 >
-                    <h4 style={{ margin: '2px 0px' }}>Route {i + 1}</h4>
+                    <h4 style={{ margin: '2px 0px' }}>Leg {i + 1}</h4>
                     <p style={{ margin: '2px 0px' }}>From: {fromAirport}</p>
                     <p style={{ margin: '2px 0px' }}>To: {toAirport}</p>
                     <p style={{ margin: '2px 0px' }}>
@@ -71,14 +71,15 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
                                     margin: '4px',
                                 }}
                                 href={`${deepLink}`}
+                                target={'_blank'}
                             >
                                 BUY
                             </a>
                         </h3>
-                        <p>
-                            From: {fromAirport} | To: {toAirport}
+                        <p style={{ margin: '2px 0px' }}>
+                            From: {fromAirport + ' '} | To: {' ' + toAirport}
                         </p>
-                        <p>Price: ${price}</p>
+                        <p style={{ margin: '2px 0px' }}>Price: ${price}</p>
                         <div
                             className="routes"
                             style={{
@@ -122,13 +123,24 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
                             alignItems: 'center',
                         }}
                     >
-                        <h3>Trip {tripIndex + 1} </h3>
+                        <h3>Trip {tripIndex + 1}</h3>
+                        <h3>${trip.totalPrice}</h3>
                         <button
                             onClick={() => {
                                 dispatch(addTrip(trip))
                             }}
                         >
                             add to My Trips
+                        </button>
+                        <button
+                            onClick={() => {
+                                trip.flights.forEach((flight: any) => {
+                                    window.open(flight.deepLink);
+                                });
+                                return false;
+                            }}
+                        >
+                            buy all flights !
                         </button>
                     </div>
 
