@@ -26,12 +26,12 @@ const findAll = (req, res, next) => {
 };
 
 const add = (req, res, next) => {
-    console.log('entered tripcontroller.add')
+    // console.log('entered tripcontroller.add');
     Trips.create(req.body, (err, result) => {
         if (err) {
             return next(err);
         }
-        console.log('add trip req body and result', req.body, result, err);
+        // console.log('add trip req body and result', req.body, result, err);
         return next();
     });
 };
