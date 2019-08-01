@@ -7,23 +7,22 @@ import SearchResults from './SearchResults';
 import { Nav } from '../utils';
 
 const Search: React.FC = (props: any): JSX.Element => {
-  const dispatch = useDispatch();
-  return (
-    <Fragment>
-      <Nav />
-      <Container>
-        <Form />
-        <SearchResults />
-      </Container>
-    </Fragment>
-  );
+    const dispatch = useDispatch();
+    return (
+        <Fragment>
+            <Nav />
+            <Container>
+                <Form />
+                <SearchResults />
+            </Container>
+        </Fragment>
+    );
 };
 export default Search;
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  padding-top: 300px;
-  grid-gap: 2rem;
-  padding: 2rem;
-`
+    display: grid;
+    grid-template-columns: 3fr 5fr;
+    grid-gap: 2rem;
+    padding: 2rem;
+`;
