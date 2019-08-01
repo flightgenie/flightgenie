@@ -18,23 +18,26 @@ const initialState: appStoreSliceInterface = {
     focusedTripIndex: 0,
 };
 
-export const appReducer = (state: appStoreSliceInterface = initialState, action: appActionInterfaceUnion) => {
-    switch (action.type) {
-        case appActionTypes.SUBMIT_FORM:
-            return {
-                ...state,
-                form: action.payload,
-            };
-        case appActionTypes.GET_TRIPS:
-            // your logic here!
-            return state;
-        case appActionTypes.ADD_TRIP:
-            // your logic here!
-            return state;
-        case appActionTypes.FOCUS_TRIP:
-            // your logic here!
-            return { ...state, focusedTripIndex: action.payload };
-        default:
-            return state;
-    }
+export const appReducer = (
+  state: appStoreSliceInterface = initialState,
+  action: appActionInterfaceUnion
+) => {
+  switch (action.type) {
+    case appActionTypes.SUBMIT_FORM:
+      return {
+        ...state,
+        tripChoices : action.payload
+      };
+    case appActionTypes.getTrips:
+      // your logic here!
+      return state;
+    case appActionTypes.addTrip:
+      // your logic here!
+      return state;
+    case appActionTypes.focusTrip:
+      // your logic here!
+      return state;
+    default:
+      return state;
+  }
 };

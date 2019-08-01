@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import * as moment from 'moment';
@@ -6,11 +6,24 @@ import { DateRangePicker } from 'react-dates';
 import { submitForm } from '../actions/appActions';
 import { form, destination} from '../interfaces';
 
-const Form: React.FC = (props: any): JSX.Element => {
+const Form: React.FC = (props: any): JSX.Element => {  
+  useEffect(() => {
+    const resultsString = `{"numAdults":1,"destinationNumDays-1":2,"departureDate":"2019-07-31T23:41:55.535Z","endDate":"2019-08-07T23:41:55.535Z","flightClass":"economy","directFlights":false,"origin":"LAX","destination-1":"JFK","destinationNumDays-2":2,"destination-2":"SFO","destinationNumDays-3":3,"destination-3":"AMS","tripType":"round-trip"}`;
+    const parsedResult = JSON.parse(resultsString);
+    parsedResult.departureDate = moment();
+    dispatch(submitForm(parsedResult))
+  }, [])
+
   // React state hooks
   const [focused, setFocusedInput] = useState(null);
   const [numDestinations, setNumDestinations] = useState(1);
-  const [formData, setFormData] = useState({numAdults: 1, 'destinationNumDays-1': 0, departureDate : moment(), endDate : moment().add(7, 'days'), flightClass: 'economy'});
+  const [formData, setFormData] = useState({numAdults: 1, 
+                                            'destinationNumDays-1': 0, 
+                                            departureDate : moment(), 
+                                            endDate : moment().add(7, 'days'), 
+                                            flightClass: 'economy', 
+                                            directFlights: false});
+
   const [startDate, setStartDate] = useState(null);
   
   // Calculations for amount of days to spend in each location
@@ -174,6 +187,7 @@ const FormContainer = styled.form`
   margin-top: 100px;
   max-width: 800px;
   width: 100%;
+  height: 100%;
 
   .form-label {
     display: block;
