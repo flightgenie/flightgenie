@@ -2,6 +2,14 @@ const Trips = require('../models/Trip');
 const axios = require('axios');
 const dateFns = require('date-fns');
 
+const nukeTrips = () => {
+  Trips.deleteMany({}, err => {
+    console.log('deleted trips collection');
+  });
+};
+
+// nukeTrips();
+
 const flightCabins = {
   economy: 'M',
   economyPremium: 'W',
@@ -10,8 +18,7 @@ const flightCabins = {
 };
 
 const findAll = (req, res, next) => {
-  Trips.find({}, (err, result) => {
-    console.log('find all trips result', result);
+  Trips.find({ userId: req.params.userId }, (err, result) => {
     res.locals.trips = result.map(item => item.toObject());
     return next();
   });
@@ -23,7 +30,6 @@ const add = (req, res, next) => {
       return next(err);
     }
     console.log('add trip req body and result', req.body, result, err);
-    // res.locals.addedTrip = result.toObject();
     return next();
   });
 };
@@ -118,18 +124,20 @@ const prepTripDataForClient = async (req, res, next) => {
       currentFlight.departureTime = rawFlightData.dTimeUTC;
       currentFlight.price = rawFlightData.price;
       currentFlight.deepLink = rawFlightData.deep_link;
-      currentFlight.route = [];
+      currentFlight.routes = [];
       rawFlightData.route.forEach((r, i) => {
         if (i === rawFlightData.route.length - 1) {
           currentFlight.arrivalTime = r.aTimeUTC;
         }
-        currentFlight.route.push({
+        currentFlight.routes.push({
           fromAirport: r.flyFrom,
           toAirport: r.flyTo,
           departureTime: r.dTimeUTC,
           arrivalTime: r.aTimeUTC,
           airline: r.airline,
-          flightNumber: r.flight_no
+          flightNumber: r.flight_no,
+          latLngFrom: [r.latFrom, r.lngFrom],
+          latLngTo: [r.latTo, r.lngTo]
         });
       });
       currentTrip.flights.push(currentFlight);
@@ -144,14 +152,6 @@ const prepTripDataForClient = async (req, res, next) => {
   res.locals.tripChoices = tripChoices;
   return next();
 };
-
-const nukeTrips = () => {
-  Trips.deleteMany({}, err => {
-    console.log('deleted trips collection');
-  });
-};
-
-// nukeTrips();
 
 const permutations = arr => {
   const perms = [];
