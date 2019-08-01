@@ -37,7 +37,7 @@ const add = (req, res, next) => {
 
 const getTripPrices = (req, res, next) => {
     // origin, departDate, res.locals.possibleOrders
-    console.log('REQ BODY', req.body);
+    // console.log('REQ BODY', req.body);
 
     res.locals.possibleOrders = permutations(req.body.destinations);
     // console.log('possible orders', res.locals.possibleOrders);
@@ -63,7 +63,7 @@ const getTripPrices = (req, res, next) => {
                 `flight_type=oneway` +
                 `&adults=${req.body.numAdults}` +
                 `&limit=1` +
-                `&direct_flights=${req.body.directFlights}` +
+                `&direct_flights=false` +
                 `&selected_cabins=${flightCabins[req.body.flightClass]}` +
                 `&partner=picky`;
             // console.log(query);

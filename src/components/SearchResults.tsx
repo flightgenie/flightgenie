@@ -1,70 +1,146 @@
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitForm, addTrip } from '../actions/appActions';
+import uuid from 'uuid';
+import { format } from 'date-fns';
 
 import { Nav, Wrapper } from '../utils';
 
 const SearchResults: React.FC = (props: any): JSX.Element => {
-  const dispatch = useDispatch();
-  const { tripsDisplay } =  useSelector((state: any) => ({
-      tripsDisplay: state.app.tripChoices
-  }))
+    const dispatch = useDispatch();
+    const { tripsDisplay } = useSelector((state: any) => ({
+        tripsDisplay: state.app.tripChoices,
+    }));
 
-  const renderRoutes = (routes: any) => {
-    return routes.map((route: any) => {
-        const { airline, arrivalTime, flightNumber, fromAirport, toAirport, departureTime} = route;
-        return (
-            <div style={{ borderBottom: '1px solid blue'}}>
-                <p style={{ fontSize: '12px', color: 'blue'}}>Airline: {airline}</p>
-                <p style={{ fontSize: '12px', color: 'blue'}}>Arrival: {arrivalTime}</p>
-                <p style={{ fontSize: '12px', color: 'blue'}}>Departure: {departureTime}</p>
-                <p style={{ fontSize: '12px', color: 'blue'}}>Flight No.: {flightNumber}</p>
-                <p style={{ fontSize: '12px', color: 'blue'}}>From: {fromAirport}</p>
-                <p style={{ fontSize: '12px', color: 'blue'}}>To: {toAirport}</p>
-            </div>
-        )
-    })
-  }
+    const renderRoutes = (routes: any) => {
+        return routes.map((route: any, i: number) => {
+            const { airline, arrivalTime, flightNumber, fromAirport, toAirport, departureTime } = route;
+            return (
+                <div
+                    id="route-result"
+                    style={{ borderBottom: '1px solid blue', fontSize: '12px', padding: '2px 0px' }}
+                    key={uuid()}
+                >
+                    <h4 style={{ margin: '2px 0px' }}>Route {i + 1}</h4>
+                    <p style={{ margin: '2px 0px' }}>From: {fromAirport}</p>
+                    <p style={{ margin: '2px 0px' }}>To: {toAirport}</p>
+                    <p style={{ margin: '2px 0px' }}>
+                        Departs: {format(new Date(departureTime * 1000), 'M/DD/YYYY h:mma')}
+                    </p>
+                    <p style={{ margin: '2px 0px' }}>
+                        Arrives: {format(new Date(arrivalTime * 1000), 'M/DD/YYYY h:mma')}
+                    </p>
+                    <p style={{ margin: '2px 0px' }}>
+                        Airline & Flight No.: {airline}
+                        {flightNumber}
+                    </p>
+                </div>
+            );
+        });
+    };
 
-  const renderSearchResults = () => {
-      //data = [app.tripChoices.flights[0]]
-      return tripsDisplay.map((trip: any, tripIndex: number) => {
-          const { flights } = trip;
-          console.log('flights data structre', flights)
-          return flights.map((flight: any, flightIndex: number) => {
-              const { fromAirport, toAirport, price, route } = flight;
-              return (
-                  <div style={{ borderBottom: '3px solid black'}}>
-                      <h3>Flight {tripIndex + 1}</h3>
-                      <p>From: {fromAirport} | To: {toAirport}</p>
-                      <p>Price: {price}</p>
-                      {renderRoutes(route)}
-                  </div>
-              )
-          })
-        // const routes = el.flights.reduce((allRoutes: any, flight: any) => {
-        //     allRoutes.push(flight.route);
-        //     return allRoutes;
-        // }, []);
-        // return routes.map((route: any) => {
-        //     const { airline, arrivalTime, departureTime, fromAirport, toAirport } = route;
-        //     console.log(route);
-        //     return (
-        //         <div>
-        //             <p>Airline: {airline}</p>
-        //             <p>Arrival Time: {arrivalTime}</p>
-        //             <p>Departure Time: {departureTime}</p>
-        //             <p>From: {fromAirport}</p>
-        //             <p>To: {toAirport}</p>
-        //         </div>
-        //     )
-        // })
-      });
-  }
-  return (
-    <div>
-        {renderSearchResults()}     
-    </div>
-  );
+    const renderSearchResults = () => {
+        //data = [app.tripChoices.flights[0]]
+        return tripsDisplay.map((trip: any, tripIndex: number) => {
+            const { flights } = trip;
+            const flightComponents = flights.map((flight: any, flightIndex: number) => {
+                const { fromAirport, toAirport, price, routes, deepLink } = flight;
+                return (
+                    // ! middle, for the flights
+                    <div
+                        id="flight-result"
+                        style={{
+                            boxShadow: '2px 3px 7px 0px rgba(0,0,0,0.75)',
+                            borderRadius: '10px',
+                            margin: '10px',
+                            maxHeight: '300px',
+                            overflowY: 'auto',
+                            padding: '10px',
+                        }}
+                        key={uuid()}
+                    >
+                        <h3>
+                            Flight {flightIndex + 1}{' '}
+                            <a
+                                style={{
+                                    color: 'white',
+                                    background: '#73c781',
+                                    borderRadius: '10px',
+                                    border: '1px solid black',
+                                    padding: '2px 8px',
+                                    margin: '4px',
+                                }}
+                                href={`${deepLink}`}
+                            >
+                                BUY
+                            </a>
+                        </h3>
+                        <p>
+                            From: {fromAirport} | To: {toAirport}
+                        </p>
+                        <p>Price: ${price}</p>
+                        <div
+                            className="routes"
+                            style={{
+                                //! INNERMOST, for the ROUTES
+                                border: '1px solid black',
+                                background: '#c9e7ff',
+                                borderRadius: '10px',
+                                height: '115px',
+                                overflowY: 'auto',
+                                margin: '4px',
+                                padding: '0px 20px',
+                            }}
+                        >
+                            {renderRoutes(routes)}
+                        </div>
+                    </div>
+                );
+            });
+            return (
+                <div
+                    className="trip"
+                    key={uuid()}
+                    style={{
+                        //! OUTERMOST STYLE FOR TRIPS
+                        maxHeight: '400px',
+                        boxShadow: '2px 3px 7px 0px rgba(0,0,0,0.75)',
+                        borderRadius: '10px',
+                        overflowY: 'auto',
+                        margin: '20px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <div
+                        id="trip-name-add"
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <h3>Trip {tripIndex + 1} </h3>
+                        <button
+                            onClick={() => {
+                                console.log('aaaahehe');
+                            }}
+                        >
+                            add to My Trips
+                        </button>
+                    </div>
+
+                    {flightComponents}
+                </div>
+            );
+        });
+    };
+    return (
+        <div id="search-results" style={{ overflowY: 'auto' }}>
+            {renderSearchResults()}
+        </div>
+    );
 };
 export default SearchResults;

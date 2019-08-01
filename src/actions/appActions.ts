@@ -11,6 +11,7 @@ import {
 import { destination, form, layoverLocation, trip } from '../Interfaces';
 
 export const submitForm = (form: form) => {
+    console.log('this is what imt gettoimg;', form);
     const formCopy = Object.assign({}, form);
     const formattedDeparture = form.departureDate.format('MM/DD/YYYY');
     formCopy.departureDate = formattedDeparture;
@@ -29,34 +30,33 @@ export const submitForm = (form: form) => {
             const destinationNumDaysKey = `destinationNumDays-${destinationIndex}`;
             const numDays = formCopy[destinationNumDaysKey];
 
-      const destination = {
-        location: value.toUpperCase(),
-        numDays
-      }
-      
-      delete formCopy[key];
-      delete formCopy[destinationNumDaysKey];
-      allDestinations.push(destination);
-    }
-    return allDestinations;
-  }, []);
+            const destination = {
+                location: value.toUpperCase(),
+                numDays,
+            };
 
-  formCopy.destinations = destinations;
-  formCopy.origin = formCopy.origin.toUpperCase();
+            delete formCopy[key];
+            delete formCopy[destinationNumDaysKey];
+            allDestinations.push(destination);
+        }
+        return allDestinations;
+    }, []);
 
-  delete formCopy.tripType;
-  delete formCopy.endDate;
-  
-  return async (dispatch: Dispatch) => {
-    axios.post('http://localhost:3000/search', formCopy).then( ({data}) => {
-      console.log(data);
-      dispatch<submitFormActionInterface>({
-        type: appActionTypes.SUBMIT_FORM,
-        payload: data,
-      });
-    });
+    formCopy.destinations = destinations;
+    formCopy.origin = formCopy.origin.toUpperCase();
 
-  };
+    delete formCopy.tripType;
+    delete formCopy.endDate;
+
+    return async (dispatch: Dispatch) => {
+        axios.post('http://localhost:3000/search', formCopy).then(({ data }) => {
+            console.log(data);
+            dispatch<submitFormActionInterface>({
+                type: appActionTypes.SUBMIT_FORM,
+                payload: data,
+            });
+        });
+    };
 };
 
 export const getTrips = (username: string) => {
