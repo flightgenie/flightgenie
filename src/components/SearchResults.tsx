@@ -127,7 +127,7 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
                         <div className="trip-total">
                             <span className="price">${trip.totalPrice}</span>
 
-                            <button
+                            {/* <button
                                 className="buy-all-button"
                                 onClick={() => {
                                     trip.flights.forEach((flight: any) => {
@@ -137,7 +137,7 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
                                 }}
                             >
                                 Buy All
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </TripContainer>

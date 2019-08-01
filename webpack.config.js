@@ -1,5 +1,6 @@
-const status = process.env.NODE_ENV;
+const mode = process.env.NODE_ENV;
 const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -12,15 +13,21 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
     },
-    mode: status,
+    mode: mode,
     devServer: {
-        publicPath: '/build/',
+        contentBase: path.join(__dirname, 'build'),
+        compress: false,
+        port: 8080,
         hot: true,
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()],
     module: {
         rules: [
-            { test: /.tsx?$/, exclude: /node-modules/, loader: 'babel-loader' },
+            { test: /\.(ts|tsx)$/, exclude: /node-modules/, loader: 'babel-loader' },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+            },
             {
                 enforce: 'pre',
                 test: /.js$/,
@@ -31,6 +38,21 @@ module.exports = {
                 test: /.css$/,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
+            {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: 'html-loader',
+                    },
+                ],
+            },
         ],
     },
+    plugins: [
+        new HtmlWebPackPlugin({
+            template: './index.html',
+            filename: './index.html',
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+    ],
 };

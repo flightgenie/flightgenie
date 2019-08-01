@@ -23,6 +23,7 @@ export default Search;
 const Container = styled.div`
     display: grid;
     grid-template-columns: 3fr 5fr;
+    justify-content: center;
     grid-gap: 2rem;
     padding: 2rem;
 `;
