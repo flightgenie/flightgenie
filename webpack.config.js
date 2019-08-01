@@ -18,6 +18,7 @@ module.exports = {
         compress: false,
         port: 8080,
     },
+    plugins: [new webpack.HotModuleReplacementPlugin()],
     module: {
         rules: [
             { test: /\.(ts|tsx)$/, exclude: /node-modules/, loader: 'babel-loader' },

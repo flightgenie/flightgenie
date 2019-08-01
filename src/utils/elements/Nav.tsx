@@ -49,16 +49,15 @@ const NavContainer = styled.nav`
     &:hover {
       color: ${brandSecondary};
     }
-  }
-  a{
-    &:hover {
-      color: mistyrose;
+    a {
+        &:hover {
+            color: mistyrose;
+        }
     }
-  }
 
-  .main-nav {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
+    .main-nav {
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
 `;

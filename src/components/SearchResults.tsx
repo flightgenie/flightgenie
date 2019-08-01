@@ -1,40 +1,76 @@
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import { submitForm, addTrip } from '../actions/appActions';
 import uuid from 'uuid';
-import { format } from 'date-fns';
+import { format, differenceInMinutes, differenceInHours } from 'date-fns';
 
-import { Nav, Wrapper } from '../utils';
+import { brandPrimary, brandSecondary, white, grey, lightGrey, mediumShadow, largeShadow, useToggle } from '../utils';
 
 const SearchResults: React.FC = (props: any): JSX.Element => {
+    const { isShowing, toggle } = useToggle();
     const dispatch = useDispatch();
     const { tripsDisplay } = useSelector((state: any) => ({
         tripsDisplay: state.app.tripChoices,
     }));
 
+    const renderDates = (departureTime, arrivalTime) => {
+        const departure = format(new Date(departureTime * 1000), 'MMM DD');
+        const arrival = format(new Date(arrivalTime * 1000), 'MMM DD');
+        const isSameDate = arrival === departure;
+        return (
+            <div>
+                <span className="date">{departure}</span>
+                {!isSameDate && <span className="date">{arrival}</span>}
+            </div>
+        );
+    };
+
+    const renderDuration = (departureTime, arrivalTime) => {
+        const minutesDifference = differenceInMinutes(new Date(arrivalTime * 1000), new Date(departureTime * 1000));
+        const hoursDifference = differenceInHours(new Date(arrivalTime * 1000), new Date(departureTime * 1000));
+        const hours = hoursDifference.toString();
+        let minutes = (minutesDifference - hoursDifference * 60).toString();
+        if (minutes.length < 2) {
+            const minutesString = String(minutes);
+            minutes = `0${minutesString}`;
+        }
+
+        return `${hours}h ${minutes}m`;
+    };
+
     const renderRoutes = (routes: any) => {
         return routes.map((route: any, i: number) => {
             const { airline, arrivalTime, flightNumber, fromAirport, toAirport, departureTime } = route;
             return (
-                <div
-                    id="route-result"
-                    style={{ borderBottom: '1px solid blue', fontSize: '12px', padding: '2px 0px' }}
-                    key={uuid()}
-                >
-                    <h4 style={{ margin: '2px 0px' }}>Leg {i + 1}</h4>
-                    <p style={{ margin: '2px 0px' }}>From: {fromAirport}</p>
-                    <p style={{ margin: '2px 0px' }}>To: {toAirport}</p>
-                    <p style={{ margin: '2px 0px' }}>
-                        Departs: {format(new Date(departureTime * 1000), 'M/DD/YYYY h:mma')}
-                    </p>
-                    <p style={{ margin: '2px 0px' }}>
-                        Arrives: {format(new Date(arrivalTime * 1000), 'M/DD/YYYY h:mma')}
-                    </p>
-                    <p style={{ margin: '2px 0px' }}>
-                        Airline & Flight No.: {airline}
-                        {flightNumber}
-                    </p>
-                </div>
+                <RouteContainer key={uuid()}>
+                    <h4 className="leg-number">Leg {i + 1}</h4>
+                    <div className="route-group">
+                        <div className="route-info">
+                            <div className="route-date">
+                                <div className="route-times">{renderDates(departureTime, arrivalTime)}</div>
+                            </div>
+                            <div className="route-info-group">
+                                <div className="route-airports">
+                                    <span className="route-airport">{fromAirport}</span>
+                                    <span className="route-airport">{toAirport}</span>
+                                </div>
+                                <div className="airline">
+                                    <span className="airline">{airline}</span>{' '}
+                                    <span className="flight-number">{flightNumber}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span className="duration">{renderDuration(departureTime, arrivalTime)}</span>
+
+                        <div className="route-times">
+                            <span className="time">
+                                {format(new Date(departureTime * 1000), 'h:mm a')} -{' '}
+                                {format(new Date(arrivalTime * 1000), 'h:mm a')}
+                            </span>
+                        </div>
+                    </div>
+                </RouteContainer>
             );
         });
     };
@@ -47,95 +83,64 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
                 const { fromAirport, toAirport, price, routes, deepLink } = flight;
                 return (
                     // ! middle, for the flights
-                    <div
-                        id="flight-result"
-                        style={{
-                            boxShadow: '2px 3px 7px 0px rgba(0,0,0,0.75)',
-                            borderRadius: '10px',
-                            margin: '10px',
-                            maxHeight: '300px',
-                            overflowY: 'auto',
-                            padding: '10px',
-                        }}
-                        key={uuid()}
-                    >
-                        <h3>
-                            Flight {flightIndex + 1}{' '}
-                            <a
-                                style={{
-                                    color: 'white',
-                                    background: '#73c781',
-                                    borderRadius: '10px',
-                                    border: '1px solid black',
-                                    padding: '2px 8px',
-                                    margin: '4px',
-                                }}
-                                href={`${deepLink}`}
-                                target={'_blank'}
-                            >
-                                BUY
-                            </a>
-                        </h3>
-                        <p style={{ margin: '2px 0px' }}>
-                            From: {fromAirport + ' '} | To: {' ' + toAirport}
-                        </p>
-                        <p style={{ margin: '2px 0px' }}>Price: ${price}</p>
-                        <div
-                            className="routes"
-                            style={{
-                                //! INNERMOST, for the ROUTES
-                                border: '1px solid black',
-                                background: '#c9e7ff',
-                                borderRadius: '10px',
-                                height: '115px',
-                                overflowY: 'auto',
-                                margin: '4px',
-                                padding: '0px 20px',
-                            }}
-                        >
-                            {renderRoutes(routes)}
+                    <FlightContainer key={uuid()}>
+                        <div className="flights">
+                            <div className="flight-airports">
+                                <span className="flight-airport">{fromAirport}</span>
+                                <span className="flight-airport">{toAirport}</span>
+                            </div>
+                            <div className="pricing">
+                                <span className="price">${price}</span>
+                                <a className="buy-button" href={`${deepLink}`} target={'_blank'}>
+                                    Buy
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                        <div className="routes">
+                            {isShowing ? (
+                                <button className="toggle-route" onClick={toggle}>
+                                    Less &#8599;
+                                </button>
+                            ) : (
+                                <button className="toggle-route" onClick={toggle}>
+                                    More &#8600;
+                                </button>
+                            )}
+                            <Routes isShowing={isShowing}>{renderRoutes(routes)}</Routes>
+                        </div>
+                    </FlightContainer>
                 );
             });
             return (
-                <div
-                    className="trip"
-                    key={uuid()}
-                    style={{
-                        //! OUTERMOST STYLE FOR TRIPS
-                        maxHeight: '400px',
-                        boxShadow: '2px 3px 7px 0px rgba(0,0,0,0.75)',
-                        borderRadius: '10px',
-                        overflowY: 'auto',
-                        margin: '20px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <div
-                        id="trip-name-add"
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <h3>Trip {tripIndex + 1}</h3>
-                        <h3>${trip.totalPrice}</h3>
+                <TripContainer key={uuid()}>
+                    <h3 className="trip-title">Trip {tripIndex + 1}</h3>
+                    {flightComponents}
+                    <div className="trip-controls">
                         <button
+                            className="add-trip-button"
                             onClick={() => {
                                 dispatch(addTrip(trip));
                             }}
                         >
-                            add to My Trips
+                            Save Trip
                         </button>
-                    </div>
+                        <div className="trip-total">
+                            <span className="price">${trip.totalPrice}</span>
 
-                    {flightComponents}
-                </div>
+                            {/* <button
+                                className="buy-all-button"
+                                onClick={() => {
+                                    trip.flights.forEach((flight: any) => {
+                                        window.open(flight.deepLink);
+                                    });
+                                    return false;
+                                }}
+                            >
+                                Buy All
+                            </button> */}
+                        </div>
+                    </div>
+                </TripContainer>
             );
         });
     };
@@ -146,3 +151,163 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
     );
 };
 export default SearchResults;
+
+const TripContainer = styled.div`
+    padding: 2rem;
+    background: ${brandSecondary};
+    box-shadow: ${mediumShadow};
+    margin-bottom: 2rem;
+    border-radius: 5px;
+
+    .trip-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1rem 0;
+    }
+
+    .trip-title {
+        margin: 0;
+        font-size: 1.5rem;
+        color: ${brandPrimary};
+    }
+
+    .trip-total {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .price {
+        text-align: right;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .buy-all-button {
+        background: ${brandPrimary};
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        color: ${white};
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+    .add-trip-button {
+        background: ${brandPrimary};
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        color: ${white};
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin: 0;
+    }
+`;
+
+const FlightContainer = styled.div`
+    border-bottom: 1px solid ${lightGrey};
+    padding: 1rem 0;
+
+    .flights {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .flight-airports {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .flight-airport {
+        margin: 0.25rem;
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .pricing {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .price {
+        display: inline-block;
+        text-align: right;
+        font-size: 1.2rem;
+    }
+
+    .buy-button {
+        background: ${brandPrimary};
+        padding: 0.25rem 1rem;
+        border-radius: 5px;
+        color: ${white};
+        font-weight: 700;
+    }
+
+    .toggle-route {
+        background: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+`;
+
+const Routes = styled.div`
+    ${props => (props.isShowing ? 'display: block' : 'display: none')}
+`;
+
+const RouteContainer = styled.div`
+    margin: 1rem 2rem;
+    .leg-number {
+        margin: 0 0 1rem;
+        font-size: 1.2rem;
+        color: ${brandPrimary};
+    }
+
+    .route-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .route-info-group {
+        margin-left: 1rem;
+    }
+
+    .route-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .route-airports {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .route-airport {
+        font-weight: 700;
+        margin: 0.1rem;
+    }
+
+    .route-times {
+        .time {
+            font-weight: 700;
+        }
+    }
+
+    .airline {
+    }
+
+    .airline,
+    .flight-number {
+        color: ${grey};
+        font-size: 0.9rem;
+    }
+
+    .route-date {
+        .date {
+            display: block;
+            margin: 0.2rem;
+        }
+    }
+`;
