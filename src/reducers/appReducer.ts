@@ -1,6 +1,6 @@
 import { appActionInterfaceUnion, appActionTypes } from '../actions/appActionTypes';
-import { destination, form, layoverLocation, trip } from '../Interfaces';
-import { simpleData, complexData, mockSearchResult } from '../utils/mockData';
+import { destination, form,  trip } from '../Interfaces';
+// import { simpleData, complexData, mockSearchResult } from '../utils/mockData';
 
 export interface appStoreSliceInterface {
     form: form;
@@ -35,6 +35,10 @@ export const appReducer = (state: appStoreSliceInterface = initialState, action:
             };
         case appActionTypes.GET_TRIPS:
             // your logic here!
+            return {
+                ...state,
+                pastTrips: action.payload,
+            }
             return state;
         case appActionTypes.ADD_TRIP:
             // your logic here!
@@ -49,6 +53,12 @@ export const appReducer = (state: appStoreSliceInterface = initialState, action:
                 ...state,
                 focusedTripIndex: action.payload,
             };
+        case appActionTypes.SET_USER_ID:
+            console.log('reducer add user id')
+            return {
+                ...state,
+                userId: action.payload
+            }
         default:
             return state;
     }
