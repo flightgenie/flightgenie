@@ -6,13 +6,13 @@ import { DateRangePicker } from 'react-dates';
 import { submitForm } from '../actions/appActions';
 import { form, destination } from '../interfaces';
 import { mockFormInput } from '../utils/mockData';
-import { brandSecondary, mediumShadow, lightGrey, white, brandPrimary, largeShadow } from '../utils';
+import { brandSecondary, mediumShadow, grey, lightGrey, white, brandPrimary, largeShadow } from '../utils';
 
 const Form: React.FC = (props: any): JSX.Element => {
-    // useEffect(() => {
-    //     mockFormInput.departureDate = moment(new Date(mockFormInput.departureDate));
-    //     dispatch(submitForm(mockFormInput));
-    // }, []);
+    useEffect(() => {
+        mockFormInput.departureDate = moment(new Date(mockFormInput.departureDate));
+        dispatch(submitForm(mockFormInput));
+    }, []);
 
     // React state hooks
     const [focused, setFocusedInput] = useState(null);
@@ -46,11 +46,19 @@ const Form: React.FC = (props: any): JSX.Element => {
     const updateDates = (date: any) => {
         // TODO: Fix async issues with calendar
         const endDate = date.endDate === null ? date.startDate : date.endDate;
+        // const endDate = date.endDate;
         const tripStart = date.startDate;
         const tripEnd = endDate;
         const difference = tripEnd.diff(tripStart, 'days');
+        const daysUsed = Object.entries(formData).reduce((totalDays, entry) => {
+            const [key, value] = entry;
+            if (key.includes('destinationNumDays')) {
+                totalDays = totalDays + Number(value);
+            }
+            return totalDays;
+        }, 0);
         setFormData(prev => ({ ...prev, departureDate: date.startDate, endDate }));
-        setDaysToUse(difference);
+        setDaysToUse(difference - daysUsed);
     };
 
     const addDestinationClick = (e: any) => {
@@ -70,7 +78,7 @@ const Form: React.FC = (props: any): JSX.Element => {
                             className="text-input"
                             type="text"
                             name="name"
-                            placeholder="To?"
+                            placeholder="🛬 To?"
                         />
                     </div>
                     <div className="days-group">
@@ -108,7 +116,7 @@ const Form: React.FC = (props: any): JSX.Element => {
         const tripEnd = formData.endDate;
         const difference = tripEnd.diff(tripStart, 'days');
         const destinationNumDaysKey = `destinationNumDays-${index}`;
-        if (daysToUse < difference && formData[destinationNumDaysKey] + 1 > 1) {
+        if (daysToUse <= difference && formData[destinationNumDaysKey] + 1 > 1) {
             setFormData(prev => ({ ...prev, [destinationNumDaysKey]: prev[destinationNumDaysKey] - 1 }));
             setDaysToUse(daysToUse + 1);
         }
@@ -144,7 +152,7 @@ const Form: React.FC = (props: any): JSX.Element => {
             />
             <input
                 onChange={e => updateFormData(e, 'origin')}
-                placeholder="From?"
+                placeholder="🛫 From?"
                 className="origin text-input"
                 type="text"
                 name="name"
@@ -203,7 +211,7 @@ const Form: React.FC = (props: any): JSX.Element => {
                 Direct Flights Only
                 <input onChange={e => updateFormData(e, 'directFlights')} type="checkbox" />
             </label>
-            <button className="button form-submit">Search Flights</button>
+            <button className="button form-submit">Search Flights ✈</button>
         </FormContainer>
     );
 };
@@ -212,12 +220,9 @@ export default Form;
 
 const FormContainer = styled.form`
     padding: 1rem;
-    background: ${brandSecondary};
     border-radius: 5px;
     max-width: 800px;
     width: 100%;
-    box-shadow: ${mediumShadow};
-    max-height: 700px;
 
     .form-label {
         display: block;
@@ -228,13 +233,14 @@ const FormContainer = styled.form`
     }
 
     .text-input {
-        padding: 1rem;
+        padding: 0.7rem;
         outline: none;
         box-shadow: none;
         font-size: 1.2rem;
         border-radius: 5px;
         border: 1px solid ${lightGrey};
         width: 100%;
+        background: ${grey};
     }
 
     .days-left {
@@ -271,16 +277,16 @@ const FormContainer = styled.form`
         font-size: 1.5rem;
         display: block;
         font-weight: 700;
-        padding: 1rem 1.2rem;
+        padding: 0.7rem 1rem;
         transition: all 100ms ease-in-out;
         transition-property: background, color, height;
-        background: ${brandPrimary};
+        background: ${brandSecondary};
         color: ${white};
         border: none;
         box-shadow: ${mediumShadow};
         &:hover {
-            background: ${white};
-            color: ${brandPrimary};
+            background: ${brandPrimary};
+            color: ${brandSecondary};
             transition: all 100ms ease-in-out;
             transition-property: shadow, background, color, height;
             border: none;
@@ -289,6 +295,8 @@ const FormContainer = styled.form`
     }
 
     .add-destination-button {
+        background: ${grey};
+        color: ${brandSecondary};
         font-size: 1rem;
         display: block;
         text-align: center;
@@ -315,7 +323,8 @@ const FormContainer = styled.form`
 
     .passengers-control-button {
         margin: 0 0.4rem;
-        background: ${white};
+        color: ${brandSecondary};
+        background: ${grey};
         padding: 0.25rem 0.5rem;
         border: 1px solid ${lightGrey};
         border-radius: 2px;
@@ -360,7 +369,8 @@ const DestinationGroup = styled.div`
 
     .days-control-button {
         margin: 0 0.4rem;
-        background: ${white};
+        background: ${grey};
+        color: ${brandSecondary};
         padding: 0.25rem 0.5rem;
         border: 1px solid ${lightGrey};
         border-radius: 2px;

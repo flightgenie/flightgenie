@@ -40,11 +40,11 @@ const TripVisualization: React.FC = (props: any): JSX.Element => {
     useEffect(() => {
         if (focusedTrip) {
             layerRef.current.clearLayers();
-            const allLatLngs: [number, number][] = [];
-            const newDestinationArr: [string, string][][] = [];
+            const allLatLngs: Array<[number, number]> = [];
+            const newDestinationArr: Array<Array<[string, string]>> = [];
             const newFlightColors: string[] = [];
             focusedTrip.flights.forEach(flight => {
-                let destinationsForFlight: [string, string][] = [];
+                const destinationsForFlight: Array<[string, string]> = [];
                 let randomColor = jacobColors[Math.floor(Math.random() * jacobColors.length)];
                 while (newFlightColors.indexOf(randomColor) > -1) {
                     randomColor = jacobColors[Math.floor(Math.random() * jacobColors.length)];
@@ -61,7 +61,7 @@ const TripVisualization: React.FC = (props: any): JSX.Element => {
                         color: currentColor,
                         labelColor: currentColor,
                         html:
-                            `<span style="color: white; background-color: black;` +
+                            '<span style="color: white; background-color: black;' +
                             `border-radius: 10px; padding: 10px; font-size: 12px; margin-bottom: 20px">${
                                 route.fromAirport
                             }</span>`,
@@ -103,8 +103,7 @@ const TripVisualization: React.FC = (props: any): JSX.Element => {
                 style={{
                     height: '70%',
                     margin: '20px',
-                    border: '2px solid black',
-                    borderRadius: '10px',
+                    borderRadius: '5px',
                 }}
             />
         </div>
