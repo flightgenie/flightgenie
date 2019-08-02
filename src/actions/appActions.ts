@@ -9,7 +9,6 @@ import {
     focusTripActionInterface,
 } from './appActionTypes';
 import { destination, form, layoverLocation, trip } from '../Interfaces';
-import { any } from 'prop-types';
 
 export const submitForm = (form: form) => {
     console.log('this is what imt gettoimg;', form);
@@ -50,7 +49,7 @@ export const submitForm = (form: form) => {
     delete formCopy.endDate;
 
     return async (dispatch: Dispatch) => {
-        axios.post('http://localhost:3000/search', formCopy).then(({ data }) => {
+        axios.post('/search', formCopy).then(({ data }) => {
             console.log(data);
             dispatch<submitFormActionInterface>({
                 type: appActionTypes.SUBMIT_FORM,
@@ -60,13 +59,12 @@ export const submitForm = (form: form) => {
     };
 };
 
-export const getTrips = (trips: any ) => {
+export const getTrips = (username: string) => {
     return async (dispatch: Dispatch) => {
         // your code here ! add your own payload to the dispatched action.
-        console.log('trips in actions', trips)
+
         dispatch<getTripsActionInterface>({
             type: appActionTypes.GET_TRIPS,
-            payload: trips
         });
     };
 };
@@ -75,7 +73,7 @@ export const addTrip = (tripIndex: trip) => {
     tripCopy.userId = '578df3efb618f5141202a196';
     return async (dispatch: Dispatch) => {
         // your code here ! add your own payload to the dispatched action.
-        axios.post('http://localhost:3000/trips', tripCopy).then(({ data }) => {
+        axios.post('/trips', tripCopy).then(({ data }) => {
             console.log('after axios addtrip', data);
             dispatch<addTripActionInterface>({
                 type: appActionTypes.ADD_TRIP,
@@ -84,15 +82,6 @@ export const addTrip = (tripIndex: trip) => {
         });
     };
 };
-
-export const addUserId = (userId: any) => {
-    console.log('addUserIdAction', userId);
-    return {
-        type: appActionTypes.SET_USER_ID,
-        payload: userId,
-
-    }
-}
 export const focusTrip = (tripIndex: number): focusTripActionInterface => {
     // your code here ! add your own payload to the dispatched action.
     console.log('yeet', tripIndex);

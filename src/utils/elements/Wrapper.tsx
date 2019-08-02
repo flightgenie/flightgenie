@@ -11,5 +11,6 @@ export default Wrapper;
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 5fr;
-    height: 84%;
+    min-height: 100vh;
+    height: 100%;
 `;

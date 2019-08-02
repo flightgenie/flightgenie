@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { submitForm, addTrip } from '../actions/appActions';
 import uuid from 'uuid';
 import { format, differenceInMinutes, differenceInHours } from 'date-fns';
@@ -154,12 +154,25 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
 };
 export default SearchResults;
 
+const ScaleUpCenter = keyframes`
+   0% {
+            transform: scale(0.5);
+            opacity: 0;
+
+  }
+  100% {
+            transform: scale(1);
+            opacity: 100%;
+  }
+`;
+
 const TripContainer = styled.div`
     background: ${grey};
     box-shadow: ${largeShadow};
     margin: 0 1rem;
     margin-bottom: 2rem;
     border-radius: 5px;
+    animation: ${ScaleUpCenter} 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 
     .title-container {
         background: ${brandSecondary};

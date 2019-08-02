@@ -9,10 +9,10 @@ import { mockFormInput } from '../utils/mockData';
 import { brandSecondary, mediumShadow, grey, lightGrey, white, brandPrimary, largeShadow } from '../utils';
 
 const Form: React.FC = (props: any): JSX.Element => {
-    useEffect(() => {
-        mockFormInput.departureDate = moment(new Date(mockFormInput.departureDate));
-        dispatch(submitForm(mockFormInput));
-    }, []);
+    // useEffect(() => {
+    //     mockFormInput.departureDate = moment(new Date(mockFormInput.departureDate));
+    //     dispatch(submitForm(mockFormInput));
+    // }, []);
 
     // React state hooks
     const [focused, setFocusedInput] = useState(null);
