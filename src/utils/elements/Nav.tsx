@@ -8,14 +8,14 @@ const Nav: React.FC = (props: any): JSX.Element => {
         <NavContainer>
             <ul className="main-nav">
                 <Link to="/">
-                    <li>Search</li>
+                    <li>🔎 Search</li>
                 </Link>
                 <Link to="/trips">
-                    <li>Trips</li>
+                    <li>🗺 Trips</li>
                 </Link>
             </ul>
             <ul>
-                <h1>✈️ ManyFlights ✈️</h1>
+                <h1>🧞 Flight ✈ Genie</h1>
             </ul>
             <ul className="auth">
                 <Link to="login">
@@ -40,19 +40,20 @@ const NavContainer = styled.nav`
   }
 
   li {
-    color: ${white}
+    color: ${white};
     cursor: pointer;
     font-weight: 700;
     list-style: none;
     text-decoration: none;
     padding: 0.5em 1em 0em 1em;
-    fontStyle
+    transition: color 100ms ease-in-out;
     &:hover {
       color: ${brandSecondary};
+      transition: color 100ms ease-in-out;
     }
     a {
         &:hover {
-            color: mistyrose;
+            color: ${brandSecondary};
         }
     }
 

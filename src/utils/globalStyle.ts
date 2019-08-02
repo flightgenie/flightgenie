@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { brandPrimary, brandSecondary } from './';
 
 export default createGlobalStyle`
   html {
@@ -19,8 +20,8 @@ export default createGlobalStyle`
     text-decoration: none;
   }
   button{
-    background: white;
-    color: rebeccapurple;
+    background: ${brandSecondary};
+    color: ${brandSecondary};
     font-size: 14px;
     border-radius: 10px;
     border: 1px solid black;

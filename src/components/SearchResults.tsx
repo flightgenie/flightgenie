@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { submitForm, addTrip } from '../actions/appActions';
 import uuid from 'uuid';
 import { format, differenceInMinutes, differenceInHours } from 'date-fns';
@@ -113,7 +113,9 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
             });
             return (
                 <TripContainer key={uuid()}>
-                    <h3 className="trip-title">Trip {tripIndex + 1}</h3>
+                    <div className="title-container">
+                        <h3 className="trip-title">Trip {tripIndex + 1}</h3>
+                    </div>
                     {flightComponents}
                     <div className="trip-controls">
                         <button
@@ -152,24 +154,44 @@ const SearchResults: React.FC = (props: any): JSX.Element => {
 };
 export default SearchResults;
 
+const ScaleUpCenter = keyframes`
+   0% {
+            transform: scale(0.5);
+            opacity: 0;
+
+  }
+  100% {
+            transform: scale(1);
+            opacity: 100%;
+  }
+`;
+
 const TripContainer = styled.div`
-    padding: 2rem;
-    background: ${brandSecondary};
-    box-shadow: ${mediumShadow};
+    background: ${grey};
+    box-shadow: ${largeShadow};
+    margin: 0 1rem;
     margin-bottom: 2rem;
     border-radius: 5px;
+    animation: ${ScaleUpCenter} 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+
+    .title-container {
+        background: ${brandSecondary};
+        border-radius: 5px 5px 0 0;
+    }
 
     .trip-controls {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin: 1rem 0;
+        padding: 1rem 2rem;
     }
 
     .trip-title {
         margin: 0;
         font-size: 1.5rem;
-        color: ${brandPrimary};
+        color: ${white};
+        padding: 1rem 2rem;
     }
 
     .trip-total {
@@ -181,12 +203,13 @@ const TripContainer = styled.div`
         text-align: right;
         font-size: 1.5rem;
         font-weight: 700;
+        margin-bottom: 0.5rem;
     }
 
     .buy-all-button {
         background: ${brandPrimary};
         padding: 0.5rem 1rem;
-        border-radius: 5px;
+        border-radius: 3px;
         color: ${white};
         font-weight: 700;
         font-size: 1.2rem;
@@ -194,19 +217,26 @@ const TripContainer = styled.div`
     }
 
     .add-trip-button {
-        background: ${brandPrimary};
+        background: ${brandSecondary};
         padding: 0.5rem 1rem;
-        border-radius: 5px;
+        border-radius: 3px;
         color: ${white};
         font-weight: 700;
         font-size: 1.2rem;
+        border: none;
         margin: 0;
+        transition: all 100ms ease-in-out;
+        transition-property: background, color;
+        &:hover {
+            background: ${brandPrimary};
+            color: ${brandSecondary};
+        }
     }
 `;
 
 const FlightContainer = styled.div`
     border-bottom: 1px solid ${lightGrey};
-    padding: 1rem 0;
+    padding: 2rem;
 
     .flights {
         display: flex;
@@ -239,9 +269,15 @@ const FlightContainer = styled.div`
     .buy-button {
         background: ${brandPrimary};
         padding: 0.25rem 1rem;
-        border-radius: 5px;
+        border-radius: 3px;
         color: ${white};
         font-weight: 700;
+        transition: all 100ms ease-in-out;
+        transition-property: background, color;
+        &:hover {
+            background: ${brandSecondary};
+            color: ${white};
+        }
     }
 
     .toggle-route {
@@ -249,6 +285,10 @@ const FlightContainer = styled.div`
         border: none;
         margin: 0;
         padding: 0;
+        transition: color 100ms ease-in-out;
+        &:hover {
+            color: ${brandPrimary};
+        }
     }
 `;
 
@@ -261,7 +301,7 @@ const RouteContainer = styled.div`
     .leg-number {
         margin: 0 0 1rem;
         font-size: 1.2rem;
-        color: ${brandPrimary};
+        color: ${brandSecondary};
     }
 
     .route-group {
