@@ -1,6 +1,6 @@
 import React,{useState, Fragment } from 'react';
 import { Nav } from '../utils';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import { addUserId } from '../actions/appActions';
@@ -13,6 +13,7 @@ const Login: React.FC = (props: any): JSX.Element => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [redirect, setRedirect] = useState(false)
 
   const onUserChange = (e) => {
     console.log(e.target.value)
@@ -24,10 +25,9 @@ const Login: React.FC = (props: any): JSX.Element => {
     setPassword(e.target.value);
   }
   const handleRedirect = () => {
-    console.log('redirect handler')
-    return (
-      <Route exact path = '/' />
-    )
+    console.log('set redirect')
+    setRedirect(true)
+    console.log('redirect', redirect)
   }
   const dispatch = useDispatch();
   const handleSignIn = (e) => {
@@ -45,8 +45,9 @@ const Login: React.FC = (props: any): JSX.Element => {
     <div id="Login">
     <input onChange = { onUserChange } type = 'text'></input>
     <input onChange = { onPasswordChange } type = 'password'></input>
-    <Link to = '/'><button onClick = { handleSignIn }>Sign In</button></Link>
+    <button onClick = { handleSignIn }>Sign In</button>
     <Link to = '/signup'><button>Sign Up</button></Link>
+    {redirect && <Redirect to = '/' /> }
   </div>
 
   );

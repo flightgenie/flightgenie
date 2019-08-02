@@ -9,5 +9,5 @@ const Main: React.FC = (props: any): JSX.Element => {
 export default Main;
 
 const Container = styled.main`
-    height: 100vh;
+    height: 100%;
 `;

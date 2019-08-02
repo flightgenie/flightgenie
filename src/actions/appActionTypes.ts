@@ -1,4 +1,4 @@
-import { destination, form, layoverLocation, trip } from '../Interfaces';
+import { destination, form, trip } from '../Interfaces';
 import { any } from 'prop-types';
 
 export interface submitFormActionInterface {
@@ -21,6 +21,12 @@ export interface setUserIdActionInterface {
   type: appActionTypes.SET_USER_ID;
   payload?: number;
 }
+
+export interface setUserIdActionInterface {
+    type: appActionTypes.SET_USER_ID;
+    payload?: number;
+}
+
 export enum appActionTypes {
   SUBMIT_FORM = 'SUBMIT_FORM',
   GET_TRIPS = 'GET_TRIPS',

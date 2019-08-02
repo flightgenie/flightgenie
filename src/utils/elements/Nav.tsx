@@ -15,7 +15,7 @@ const Nav: React.FC = (props: any): JSX.Element => {
                 </Link>
             </ul>
             <ul>
-                <h1>Flight Genius</h1>
+                <h1>✈️ ManyFlights ✈️</h1>
             </ul>
             <ul className="auth">
                 <Link to="login">
@@ -32,7 +32,7 @@ const NavContainer = styled.nav`
   background: ${brandPrimary};
   display: flex;
   justify-content: space-between;
-  padding: 2rem;
+  padding: 0.3rem;
   width: 100%;
 
   h1{ 
@@ -45,20 +45,20 @@ const NavContainer = styled.nav`
     font-weight: 700;
     list-style: none;
     text-decoration: none;
+    padding: 0.5em 1em 0em 1em;
     fontStyle
     &:hover {
       color: ${brandSecondary};
     }
-  }
-  a{
-    &:hover {
-      color: mistyrose;
+    a {
+        &:hover {
+            color: mistyrose;
+        }
     }
-  }
 
-  .main-nav {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
+    .main-nav {
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
 `;

@@ -1,6 +1,6 @@
 import { appActionInterfaceUnion, appActionTypes } from '../actions/appActionTypes';
-import { destination, form, layoverLocation, trip } from '../Interfaces';
-import { simpleData, complexData, mockSearchResult } from '../utils/mockData';
+import { destination, form,  trip } from '../Interfaces';
+// import { simpleData, complexData, mockSearchResult } from '../utils/mockData';
 
 export interface appStoreSliceInterface {
     form: form;
@@ -10,10 +10,18 @@ export interface appStoreSliceInterface {
     focusedTripIndex: number;
 }
 
+// const mockInitialState: appStoreSliceInterface = {
+//     form: {},
+//     pastTrips: [simpleData, complexData],
+//     tripChoices: mockSearchResult,
+//     username: 'bob',
+//     focusedTripIndex: 0,
+// };
+
 const initialState: appStoreSliceInterface = {
     form: {},
-    pastTrips: [simpleData, complexData],
-    tripChoices: mockSearchResult,
+    pastTrips: [],
+    tripChoices: [],
     userId: 'bob',
     focusedTripIndex: 0,
 };
@@ -34,11 +42,11 @@ export const appReducer = (state: appStoreSliceInterface = initialState, action:
             return state;
         case appActionTypes.ADD_TRIP:
             // your logic here!
-            const pastTrips = [...state.pastTrips]
-            pastTrips.push(action.payload)
+            const pastTrips = [...state.pastTrips];
+            pastTrips.push(action.payload);
             return {
-              ...state,
-              pastTrips,
+                ...state,
+                pastTrips,
             };
         case appActionTypes.FOCUS_TRIP:
             return {
