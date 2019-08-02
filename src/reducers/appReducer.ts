@@ -6,7 +6,7 @@ export interface appStoreSliceInterface {
     form: form;
     pastTrips: trip[];
     tripChoices: trip[];
-    username: string;
+    userId: string;
     focusedTripIndex: number;
 }
 
@@ -14,7 +14,7 @@ const initialState: appStoreSliceInterface = {
     form: {},
     pastTrips: [simpleData, complexData],
     tripChoices: mockSearchResult,
-    username: 'bob',
+    userId: 'bob',
     focusedTripIndex: 0,
 };
 
@@ -45,6 +45,12 @@ export const appReducer = (state: appStoreSliceInterface = initialState, action:
                 ...state,
                 focusedTripIndex: action.payload,
             };
+        case appActionTypes.SET_USER_ID:
+            console.log('reducer add user id')
+            return {
+                ...state,
+                userId: action.payload
+            }
         default:
             return state;
     }

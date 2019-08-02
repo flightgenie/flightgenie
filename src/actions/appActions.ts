@@ -9,6 +9,7 @@ import {
     focusTripActionInterface,
 } from './appActionTypes';
 import { destination, form, layoverLocation, trip } from '../Interfaces';
+import { any } from 'prop-types';
 
 
 export const submitForm = (form: form) => {
@@ -84,6 +85,15 @@ export const addTrip = (tripIndex: trip) => {
         })
     };
 };
+
+export const addUserId = (userId: any) => {
+    console.log('addUserIdAction', userId);
+    return {
+        type: appActionTypes.SET_USER_ID,
+        payload: userId,
+
+    }
+}
 export const focusTrip = (tripIndex: number): focusTripActionInterface => {
     // your code here ! add your own payload to the dispatched action.
     console.log('yeet', tripIndex);
