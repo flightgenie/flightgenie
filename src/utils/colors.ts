@@ -1,8 +1,8 @@
-export const brandPrimary = 'rebeccapurple';
-export const brandSecondary = 'mistyrose';
+export const brandPrimary = '#FD9F0C';
+export const brandSecondary = '#0030a2';
 export const white = '#ffffff';
 export const black = '#191a1a';
-export const grey = '#a4a4a4';
+export const grey = '#F1F4F7';
 export const lightGrey = '#fafafc';
 
 export const jacobColors: string[] = [
